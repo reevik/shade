@@ -1,5 +1,3 @@
-package io.ryos.cloud.mux;
-
 /*******************************************************************************
  * Copyright (c) 2023 Erhan Bagdemir. All rights reserved.
  *
@@ -15,25 +13,31 @@ package io.ryos.cloud.mux;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package io.ryos.cloud.mux;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.function.Supplier;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class SideCommand<T> {
+import io.ryos.cloud.mux.validators.ValidationResult;
 
-  private final Supplier<T> supplier;
+public class MonitorableAssertionFactory {
 
-  protected SideCommand(Supplier<T> supplier) {
-    this.supplier = supplier;
-  }
+  public static Monitorable expect(ValidationResult result) {
 
-  protected Result<T> run() {
-    Instant start = Instant.now();
-    try {
-      return new SuccessResult<>(supplier.get(), Duration.between(start, Instant.now()));
-    } catch (Exception e) {
-      return new ErrorResult<>(e, Duration.between(start, Instant.now()));
-    }
+    return new Monitorable() {
+      @Override
+      public void onValidationError(ValidationResult validationResult) {
+        assertThat(validationResult).isEqualTo(result);
+      }
+
+      @Override
+      public void onRoute() {
+
+      }
+
+      @Override
+      public void onSpill() {
+
+      }
+    };
   }
 }

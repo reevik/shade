@@ -18,15 +18,16 @@ package io.ryos.cloud.mux;
 
 import io.ryos.cloud.mux.validators.ResultValidator;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Supplier;
 
 public class RoutingConfiguration<T> {
+
   private final SideCommand<T> sideACommand;
   private final SideCommand<T> sideBCommand;
   private final ExecutorService executorService;
   private final ResultValidator<T> validator;
   private final RoutingMode routingMode;
   private final RoutingCriterion routingCriterion;
-
   private final Monitorable monitorable;
 
   public RoutingConfiguration(SideCommand<T> sideACommand, SideCommand<T> sideBCommand,
@@ -39,6 +40,61 @@ public class RoutingConfiguration<T> {
     this.routingMode = routingMode;
     this.routingCriterion = routingCriterion;
     this.monitorable = monitorable;
+  }
+
+  static class Builder<T> {
+
+    private SideCommand<T> sideACommand;
+    private SideCommand<T> sideBCommand;
+    private ExecutorService executorService;
+    private ResultValidator<T> validator;
+    private RoutingMode routingMode;
+    private RoutingCriterion routingCriterion;
+    private Monitorable monitorable;
+
+    public static <T> Builder<T> create() {
+      return new Builder<>();
+    }
+
+    public Builder<T> withSideA(Supplier<T> supplier) {
+      this.sideACommand = new SideCommand<T>(supplier);
+      return this;
+    }
+
+    public Builder<T> withSideB(Supplier<T> supplier) {
+      this.sideBCommand = new SideCommand<T>(supplier);
+      return this;
+    }
+
+    public Builder<T> withExecutorService(ExecutorService executorService) {
+      this.executorService = executorService;
+      return this;
+    }
+
+    public Builder<T> withResultValidator(ResultValidator<T> validator) {
+      this.validator = validator;
+      return this;
+    }
+
+    public Builder<T> withRoutingMode(RoutingMode routingMode) {
+      this.routingMode = routingMode;
+      return this;
+    }
+
+    public Builder<T> withRoutingCriterion(RoutingCriterion routingCriterion) {
+      this.routingCriterion = routingCriterion;
+      return this;
+    }
+
+    public Builder<T> withMonitorable(Monitorable monitorable) {
+      this.monitorable = monitorable;
+      return this;
+    }
+
+    public RoutingConfiguration<T> build() {
+      return new RoutingConfiguration<>(sideACommand, sideBCommand, executorService, validator,
+          routingMode, routingCriterion, monitorable);
+    }
   }
 
   public SideCommand<T> getSideACommand() {

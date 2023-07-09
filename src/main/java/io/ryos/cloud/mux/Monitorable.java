@@ -18,6 +18,10 @@ package io.ryos.cloud.mux;
 import io.ryos.cloud.mux.validators.ValidationResult;
 
 public interface Monitorable {
+
   void onValidationError(ValidationResult validationResult);
+
   void onRoute();
+
+  void onSpill();
 }

@@ -1,5 +1,3 @@
-package io.ryos.cloud.mux;
-
 /*******************************************************************************
  * Copyright (c) 2023 Erhan Bagdemir. All rights reserved.
  *
@@ -15,25 +13,16 @@ package io.ryos.cloud.mux;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package io.ryos.cloud.mux.validators;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.function.Supplier;
+import java.util.Collections;
 
-public class SideCommand<T> {
-
-  private final Supplier<T> supplier;
-
-  protected SideCommand(Supplier<T> supplier) {
-    this.supplier = supplier;
+public class ValidatorFactory {
+  public static <T> ResultValidator<T> mustEqual() {
+    return new ResultValidatorImpl<>(Collections.singletonList(new EqualsAcceptanceImpl<>()));
   }
 
-  protected Result<T> run() {
-    Instant start = Instant.now();
-    try {
-      return new SuccessResult<>(supplier.get(), Duration.between(start, Instant.now()));
-    } catch (Exception e) {
-      return new ErrorResult<>(e, Duration.between(start, Instant.now()));
-    }
+  public static ValidationResult newResult(boolean passed, String description) {
+    return new ValidationResult(passed, description);
   }
 }

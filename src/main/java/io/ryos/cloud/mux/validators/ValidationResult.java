@@ -1,5 +1,7 @@
 package io.ryos.cloud.mux.validators;
 
+import java.util.Objects;
+
 /*******************************************************************************
  * Copyright (c) 2023 Erhan Bagdemir. All rights reserved.
  *
@@ -31,5 +33,22 @@ public class ValidationResult {
 
   public String getDescription() {
     return description;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ValidationResult that = (ValidationResult) o;
+    return passed == that.passed && Objects.equals(description, that.description);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(passed, description);
   }
 }
