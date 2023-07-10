@@ -63,7 +63,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.EndpointRouterTest">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="jmux" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -84,6 +84,21 @@
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="EndpointRouterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jmux" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.ryos.cloud.mux.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.ryos.cloud.mux" />
+      <option name="MAIN_CLASS_NAME" value="io.ryos.cloud.mux.EndpointRouterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EndpointRouterTest.testRouting" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jmux" />
       <extension name="coverage">
@@ -95,6 +110,22 @@
       <option name="PACKAGE_NAME" value="io.ryos.cloud.mux" />
       <option name="MAIN_CLASS_NAME" value="io.ryos.cloud.mux.EndpointRouterTest" />
       <option name="METHOD_NAME" value="testRouting" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EndpointRouterTest.testShadowTesting" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jmux" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.ryos.cloud.mux.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.ryos.cloud.mux" />
+      <option name="MAIN_CLASS_NAME" value="io.ryos.cloud.mux.EndpointRouterTest" />
+      <option name="METHOD_NAME" value="testShadowTesting" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -175,6 +206,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EndpointRouterTest" />
+        <item itemvalue="JUnit.EndpointRouterTest.testShadowTesting" />
         <item itemvalue="JUnit.EndpointRouterTest.testRouting" />
       </list>
     </recent_temporary>
@@ -203,6 +236,21 @@
           <url>file://$PROJECT_DIR$/src/test/java/io/ryos/cloud/mux/MonitorableAssertionFactory.java</url>
           <line>28</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/ryos/cloud/mux/EndpointRouter.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/ryos/cloud/mux/EndpointRouter.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/ryos/cloud/mux/validators/EqualsAcceptanceImpl.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

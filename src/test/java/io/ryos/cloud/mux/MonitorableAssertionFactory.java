@@ -21,22 +21,41 @@ import io.ryos.cloud.mux.validators.ValidationResult;
 
 public class MonitorableAssertionFactory {
 
-  public static Monitorable expect(ValidationResult result) {
+  public static Monitorable expectError() {
 
     return new Monitorable() {
       @Override
       public void onValidationError(ValidationResult validationResult) {
-        assertThat(validationResult).isEqualTo(result);
+        assertThat(validationResult.isPassed()).isEqualTo(false);
       }
 
       @Override
       public void onRoute() {
-
+        throw new AssertionError("expected error but passed.");
       }
 
       @Override
       public void onSpill() {
+        throw new AssertionError("expected error but spilled.");
+      }
+    };
+  }
 
+  public static Monitorable expectSuccess() {
+
+    return new Monitorable() {
+      @Override
+      public void onValidationError(ValidationResult validationResult) {
+        throw new AssertionError("expected success but errored.");
+      }
+
+      @Override
+      public void onRoute() {
+      }
+
+      @Override
+      public void onSpill() {
+        throw new AssertionError("expected success but spilled.");
       }
     };
   }

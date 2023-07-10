@@ -16,6 +16,8 @@ package io.ryos.cloud.mux.validators;
  * limitations under the License.
  ******************************************************************************/
 
+import static io.ryos.cloud.mux.validators.ValidatorFactory.newResult;
+
 import io.ryos.cloud.mux.Result;
 import java.util.List;
 
@@ -28,10 +30,11 @@ public class ResultValidatorImpl<T> implements ResultValidator<T> {
   }
 
   public ValidationResult validate(Result<T> resultA, Result<T> resultB) {
-    boolean result = acceptanceCriteria.stream()
+    return acceptanceCriteria.stream()
         .map(criterion -> criterion.check(resultA, resultB))
-        .reduce((resultABoolean, resultBBoolean) -> resultABoolean && resultBBoolean)
-        .orElse(false);
-    return new ValidationResult(result, "" /* */);
+        .reduce((validationResultA, validationResultB) -> newResult(
+            validationResultA.isPassed() && validationResultB.isPassed(),
+            validationResultA.getDescription().concat(validationResultB.getDescription())))
+        .orElse(newResult(false));
   }
 }

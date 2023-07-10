@@ -16,6 +16,8 @@ package io.ryos.cloud.mux.validators;
  * limitations under the License.
  ******************************************************************************/
 
+import static io.ryos.cloud.mux.validators.ValidatorFactory.newResult;
+
 import io.ryos.cloud.mux.Result;
 import java.time.Duration;
 
@@ -28,11 +30,11 @@ public class PerformanceAcceptanceImpl<T> implements AcceptanceCriterion<T> {
   }
 
   @Override
-  public boolean check(Result<T> resultASide, Result<T> resultBSide) {
+  public ValidationResult check(Result<T> resultASide, Result<T> resultBSide) {
     Duration diffDuration = resultBSide.getDuration().minus(resultASide.getDuration());
     if (diffDuration.isNegative()) {
-      return true;
+      return newResult(true, "");
     }
-    return diffDuration.compareTo(maxDeviance) > 0;
+    return newResult(diffDuration.compareTo(maxDeviance) > 0, "too slow");
   }
 }

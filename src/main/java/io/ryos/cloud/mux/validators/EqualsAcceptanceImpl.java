@@ -21,7 +21,7 @@ import io.ryos.cloud.mux.Result;
 public class EqualsAcceptanceImpl<T> implements AcceptanceCriterion<T> {
 
   @Override
-  public boolean check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
-    return resultOnSideA.equals(resultOnSideB);
+  public ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
+    return ValidatorFactory.newResult(resultOnSideA.equals(resultOnSideB), "not equal");
   }
 }

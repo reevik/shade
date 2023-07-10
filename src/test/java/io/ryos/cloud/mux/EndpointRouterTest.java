@@ -15,6 +15,7 @@
  ******************************************************************************/
 package io.ryos.cloud.mux;
 
+import static io.ryos.cloud.mux.MonitorableAssertionFactory.expectSuccess;
 import static io.ryos.cloud.mux.validators.ValidatorFactory.mustEqual;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,5 +39,21 @@ public class EndpointRouterTest {
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     String result = router.route();
     assertThat(result).isEqualTo("A");
+  }
+
+  @Test
+  public void testShadowTestingActive() throws Exception {
+    CountingCriterion countingCriterion = new CountingCriterion(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(() -> "abc")
+        .withSideB(() -> "abc")
+        .withExecutorService(new NonParallelExecutor())
+        .withResultValidator(mustEqual())
+        .withRoutingCriterion(countingCriterion)
+        .withMonitorable(expectSuccess())
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .build();
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThat(router.route()).isEqualTo("abc");
   }
 }

@@ -19,5 +19,5 @@ package io.ryos.cloud.mux.validators;
 import io.ryos.cloud.mux.Result;
 
 public interface AcceptanceCriterion<T> {
-  boolean check(Result<T> resultOnSideA, Result<T> resultOnSideB);
+  ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB);
 }

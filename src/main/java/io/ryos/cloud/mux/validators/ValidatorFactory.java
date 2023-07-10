@@ -25,4 +25,9 @@ public class ValidatorFactory {
   public static ValidationResult newResult(boolean passed, String description) {
     return new ValidationResult(passed, description);
   }
+
+  public static ValidationResult newResult(boolean passed) {
+    return new ValidationResult(passed, "");
+  }
 }
+

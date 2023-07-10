@@ -16,6 +16,8 @@ package io.ryos.cloud.mux.validators;
  * limitations under the License.
  ******************************************************************************/
 
+import static io.ryos.cloud.mux.validators.ValidatorFactory.newResult;
+
 import io.ryos.cloud.mux.Result;
 import java.util.function.BiPredicate;
 
@@ -28,7 +30,7 @@ public class CustomEqualsAcceptanceImpl<T> implements AcceptanceCriterion<T> {
   }
 
   @Override
-  public boolean check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
-    return predicate.test(resultOnSideA, resultOnSideB);
+  public ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
+    return newResult(predicate.test(resultOnSideA, resultOnSideB), "not equal");
   }
 }
