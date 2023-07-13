@@ -17,6 +17,8 @@ package io.ryos.cloud.mux;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -26,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class NonParallelExecutor implements ExecutorService {
+  private final Queue<Callable<?>> queue = new ArrayBlockingQueue<>(10);
+
   private boolean shutdown;
   private boolean terminated;
 
@@ -56,11 +60,7 @@ public class NonParallelExecutor implements ExecutorService {
 
   @Override
   public <T> Future<T> submit(Callable<T> task) {
-    try {
-      return CompletableFuture.completedFuture(task.call());
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    return execute(task);
   }
 
   @Override
@@ -102,5 +102,13 @@ public class NonParallelExecutor implements ExecutorService {
   @Override
   public void execute(Runnable command) {
     command.run();
+  }
+
+  private <T> Future<T> execute(Callable<T> task) {
+    try {
+      return CompletableFuture.completedFuture(task.call());
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 }

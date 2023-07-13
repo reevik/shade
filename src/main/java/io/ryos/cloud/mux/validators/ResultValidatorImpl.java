@@ -35,6 +35,6 @@ public class ResultValidatorImpl<T> implements ResultValidator<T> {
         .reduce((validationResultA, validationResultB) -> newResult(
             validationResultA.isPassed() && validationResultB.isPassed(),
             validationResultA.getDescription().concat(validationResultB.getDescription())))
-        .orElse(newResult(false));
+        .orElse(newResult(false, ""));
   }
 }

@@ -16,12 +16,16 @@ package io.ryos.cloud.mux.validators;
  * limitations under the License.
  ******************************************************************************/
 
+import static io.ryos.cloud.mux.validators.ValidatorFactory.newResult;
+
 import io.ryos.cloud.mux.Result;
 
 public class EqualsAcceptanceImpl<T> implements AcceptanceCriterion<T> {
 
   @Override
   public ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
-    return ValidatorFactory.newResult(resultOnSideA.equals(resultOnSideB), "not equal");
+    return newResult(resultOnSideA.equals(resultOnSideB), String.format(
+        "Equals check failed: The result from the A side: %s is not equal to the result from B side: %s",
+        resultOnSideA, resultOnSideB));
   }
 }

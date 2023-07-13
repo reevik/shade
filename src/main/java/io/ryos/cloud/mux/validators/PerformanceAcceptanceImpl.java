@@ -22,7 +22,6 @@ import io.ryos.cloud.mux.Result;
 import java.time.Duration;
 
 public class PerformanceAcceptanceImpl<T> implements AcceptanceCriterion<T> {
-
   private final Duration maxDeviance;
 
   public PerformanceAcceptanceImpl(Duration maxDeviance) {
@@ -32,9 +31,8 @@ public class PerformanceAcceptanceImpl<T> implements AcceptanceCriterion<T> {
   @Override
   public ValidationResult check(Result<T> resultASide, Result<T> resultBSide) {
     Duration diffDuration = resultBSide.getDuration().minus(resultASide.getDuration());
-    if (diffDuration.isNegative()) {
-      return newResult(true, "");
-    }
-    return newResult(diffDuration.compareTo(maxDeviance) > 0, "too slow");
+    return newResult(diffDuration.compareTo(maxDeviance) > 0, String.format(
+        "Performance check failed: The response time of the B Side deviates by %d seconds.",
+        diffDuration.getSeconds()));
   }
 }

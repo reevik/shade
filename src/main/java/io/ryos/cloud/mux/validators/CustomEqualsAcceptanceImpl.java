@@ -31,6 +31,8 @@ public class CustomEqualsAcceptanceImpl<T> implements AcceptanceCriterion<T> {
 
   @Override
   public ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
-    return newResult(predicate.test(resultOnSideA, resultOnSideB), "not equal");
+    return newResult(predicate.test(resultOnSideA, resultOnSideB), String.format(
+        "Equals check failed: The result from the A side: %s is not equal to the result from B side: %s",
+        resultOnSideA, resultOnSideB));
   }
 }
