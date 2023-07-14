@@ -18,31 +18,65 @@ package io.ryos.cloud.mux;
 import static io.ryos.cloud.mux.MonitorableAssertionFactory.expectSuccess;
 import static io.ryos.cloud.mux.validators.ValidatorFactory.mustEqual;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 import io.ryos.cloud.mux.RoutingConfiguration.Builder;
-import java.util.concurrent.Executors;
+import io.ryos.cloud.mux.validators.EqualsAcceptanceImpl;
+import io.ryos.cloud.mux.validators.ResultValidator;
+import io.ryos.cloud.mux.validators.ResultValidatorImpl;
+import io.ryos.cloud.mux.validators.ValidationResult;
+import java.util.Collections;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class EndpointRouterTest {
 
   @Test
   public void testNonRouting() throws Exception {
     CountingCriterion countingCriterion = new CountingCriterion(1);
+    ResultValidator<String> mustEqual = spy(mustEqual());
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(() -> "A")
-        .withSideB(() -> "B")
-        .withExecutorService(Executors.newSingleThreadExecutor())
-        .withResultValidator(mustEqual())
+        .withSideB(EndpointRouterTest::assertNotCalled)
+        .withExecutorService(new NonParallelExecutor())
+        .withResultValidator(mustEqual)
         .withRoutingCriterion(countingCriterion)
         .withRoutingMode(RoutingMode.A_SIDE)
         .build();
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     String result = router.route();
     assertThat(result).isEqualTo("A");
+    verify(mustEqual, never()).validate(any(), any());
+  }
+
+  private static String assertNotCalled() {
+    throw new AssertionError();
   }
 
   @Test
-  public void testShadowTestingActive() throws Exception {
+  public void testAlwaysRouting() throws Exception {
+    CountingCriterion countingCriterion = new CountingCriterion(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(EndpointRouterTest::assertNotCalled)
+        .withSideB(() -> "B")
+        .withExecutorService(new NonParallelExecutor())
+        .withResultValidator(mustEqual())
+        .withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.B_SIDE)
+        .build();
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    String result = router.route();
+    assertThat(result).isEqualTo("B");
+  }
+
+  @Test
+  public void testShadowTestingPassing() throws Exception {
     CountingCriterion countingCriterion = new CountingCriterion(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(() -> "abc")
@@ -55,5 +89,26 @@ public class EndpointRouterTest {
         .build();
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
+  }
+
+  @Test
+  public void testShadowTestingValidationFailure() throws Exception {
+    ResultValidatorImpl<String> validator = spy(new ResultValidatorImpl<>(
+        Collections.singletonList(new EqualsAcceptanceImpl<>())));
+    CountingCriterion countingCriterion = new CountingCriterion(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(() -> "abc")
+        .withSideB(() -> "abd")
+        .withExecutorService(new NonParallelExecutor())
+        .withResultValidator(validator)
+        .withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .build();
+
+    ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
+    doAnswer(capture).when(validator).validate(any(), any());
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThat(router.route()).isEqualTo("abc");
+    assertThat(capture.getResult().isPassed()).isFalse();
   }
 }

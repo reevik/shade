@@ -99,7 +99,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EndpointRouterTest.testRouting" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EndpointRouterTest.testAlwaysRouting" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jmux" />
       <extension name="coverage">
         <pattern>
@@ -109,7 +109,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="io.ryos.cloud.mux" />
       <option name="MAIN_CLASS_NAME" value="io.ryos.cloud.mux.EndpointRouterTest" />
-      <option name="METHOD_NAME" value="testRouting" />
+      <option name="METHOD_NAME" value="testAlwaysRouting" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EndpointRouterTest.testNonRouting" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jmux" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.ryos.cloud.mux.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.ryos.cloud.mux" />
+      <option name="MAIN_CLASS_NAME" value="io.ryos.cloud.mux.EndpointRouterTest" />
+      <option name="METHOD_NAME" value="testNonRouting" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -126,6 +142,22 @@
       <option name="PACKAGE_NAME" value="io.ryos.cloud.mux" />
       <option name="MAIN_CLASS_NAME" value="io.ryos.cloud.mux.EndpointRouterTest" />
       <option name="METHOD_NAME" value="testShadowTesting" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EndpointRouterTest.testShadowTestingValidationFailure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jmux" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.ryos.cloud.mux.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.ryos.cloud.mux" />
+      <option name="MAIN_CLASS_NAME" value="io.ryos.cloud.mux.EndpointRouterTest" />
+      <option name="METHOD_NAME" value="testShadowTestingValidationFailure" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -207,8 +239,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.EndpointRouterTest" />
+        <item itemvalue="JUnit.EndpointRouterTest.testNonRouting" />
+        <item itemvalue="JUnit.EndpointRouterTest.testShadowTestingValidationFailure" />
+        <item itemvalue="JUnit.EndpointRouterTest.testAlwaysRouting" />
         <item itemvalue="JUnit.EndpointRouterTest.testShadowTesting" />
-        <item itemvalue="JUnit.EndpointRouterTest.testRouting" />
       </list>
     </recent_temporary>
   </component>

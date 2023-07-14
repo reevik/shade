@@ -50,7 +50,7 @@ public class RoutingConfiguration<T> {
     private ResultValidator<T> validator;
     private RoutingMode routingMode;
     private RoutingCriterion routingCriterion;
-    private Monitorable monitorable;
+    private Monitorable monitorable = new NoopMonitoringImpl();
 
     public static <T> Builder<T> create() {
       return new Builder<>();
