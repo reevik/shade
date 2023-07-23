@@ -29,6 +29,7 @@ import io.ryos.cloud.mux.validators.EqualsAcceptanceImpl;
 import io.ryos.cloud.mux.validators.ResultValidator;
 import io.ryos.cloud.mux.validators.ResultValidatorImpl;
 import io.ryos.cloud.mux.validators.ValidationResult;
+import io.ryos.cloud.mux.validators.ValidatorFactory;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +37,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class EndpointRouterTest {
+
+  private final ResultValidator<String> alwaysTrueValidator =
+      (resultA, resultB) -> ValidatorFactory.newResult(true, "N/A");
 
   @Test
   public void testNonRouting() throws Exception {
@@ -86,6 +90,38 @@ public class EndpointRouterTest {
         .withRoutingCriterion(countingCriterion)
         .withMonitorable(expectSuccess())
         .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .build();
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThat(router.route()).isEqualTo("abc");
+  }
+
+  @Test
+  public void testShadowTestingPassingWithResultFromBSide() throws Exception {
+    CountingCriterion countingCriterion = new CountingCriterion(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(() -> "abc")
+        .withSideB(() -> "dbc")
+        .withExecutorService(new NonParallelExecutor())
+        .withResultValidator(alwaysTrueValidator)
+        .withRoutingCriterion(countingCriterion)
+        .withMonitorable(expectSuccess())
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .build();
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThat(router.route()).isEqualTo("dbc");
+  }
+
+  @Test
+  public void testShadowTestingPassingWithResultFromASide() throws Exception {
+    CountingCriterion countingCriterion = new CountingCriterion(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(() -> "abc")
+        .withSideB(() -> "dbc")
+        .withExecutorService(new NonParallelExecutor())
+        .withResultValidator(alwaysTrueValidator)
+        .withRoutingCriterion(countingCriterion)
+        .withMonitorable(expectSuccess())
+        .withRoutingMode(RoutingMode.SHADOW_MODE_PASSIVE)
         .build();
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
