@@ -16,22 +16,23 @@
 package io.ryos.cloud.mux;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
-public class NonParallelExecutor implements ExecutorService {
-  private final Queue<Callable<?>> queue = new ArrayBlockingQueue<>(10);
+public class DummyExecutor implements ExecutorService {
 
   private boolean shutdown;
   private boolean terminated;
+
+  public DummyExecutor() {
+    shutdown = false;
+    terminated = false;
+  }
 
   @Override
   public void shutdown() {
@@ -40,7 +41,7 @@ public class NonParallelExecutor implements ExecutorService {
 
   @Override
   public List<Runnable> shutdownNow() {
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
@@ -54,7 +55,7 @@ public class NonParallelExecutor implements ExecutorService {
   }
 
   @Override
-  public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+  public boolean awaitTermination(long timeout, TimeUnit unit) {
     return false;
   }
 
@@ -76,26 +77,23 @@ public class NonParallelExecutor implements ExecutorService {
   }
 
   @Override
-  public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException {
+  public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) {
     return null;
   }
 
   @Override
   public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout,
-      TimeUnit unit) throws InterruptedException {
+      TimeUnit unit) {
     return null;
   }
 
   @Override
-  public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException, ExecutionException {
+  public <T> T invokeAny(Collection<? extends Callable<T>> tasks) {
     return null;
   }
 
   @Override
-  public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
+  public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) {
     return null;
   }
 
