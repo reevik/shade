@@ -63,6 +63,7 @@ public class EndpointRouter<T> {
   private Future<Result<T>> getResult(SideCommand<T> sideBCommand, Result<T> resultA) {
     ResultValidator<T> validator = config.getValidator();
     Monitorable monitorable = config.getMonitorable();
+
     return config.getExecutorService().submit(() -> {
       Result<T> resultB = sideBCommand.run();
       ValidationResult validationResult = validator.validate(resultA, resultB);
@@ -77,7 +78,7 @@ public class EndpointRouter<T> {
 
   private Result<T> shadowTest(SideCommand<T> sideBCommand, SideCommand<T> sideACommand) {
     Result<T> resultA = sideACommand.run();
-    getResult(sideBCommand, resultA);
+    getResult(sideBCommand, sideACommand.run());
     return resultA;
   }
 

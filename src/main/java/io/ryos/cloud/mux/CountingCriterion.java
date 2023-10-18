@@ -1,5 +1,3 @@
-package io.ryos.cloud.mux;
-
 /*******************************************************************************
  * Copyright (c) 2023 Erhan Bagdemir. All rights reserved.
  *
@@ -16,6 +14,11 @@ package io.ryos.cloud.mux;
  * limitations under the License.
  ******************************************************************************/
 
+package io.ryos.cloud.mux;
+
+/**
+ * Criterion which enables routing in case the number of requests reach a pre-configured threshold.
+ */
 public class CountingCriterion implements RoutingCriterion {
 
   private int counter;

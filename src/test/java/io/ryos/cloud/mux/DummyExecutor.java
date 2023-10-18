@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package io.ryos.cloud.mux;
 
 import java.util.Collection;
@@ -23,9 +24,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class DummyExecutor implements ExecutorService {
-
   private boolean shutdown;
   private boolean terminated;
 
@@ -37,10 +38,12 @@ public class DummyExecutor implements ExecutorService {
   @Override
   public void shutdown() {
     shutdown = true;
+    terminated = true;
   }
 
   @Override
   public List<Runnable> shutdownNow() {
+    shutdown();
     return Collections.emptyList();
   }
 
@@ -56,7 +59,7 @@ public class DummyExecutor implements ExecutorService {
 
   @Override
   public boolean awaitTermination(long timeout, TimeUnit unit) {
-    return false;
+    return isTerminated();
   }
 
   @Override
@@ -78,13 +81,13 @@ public class DummyExecutor implements ExecutorService {
 
   @Override
   public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) {
-    return null;
+    return tasks.stream().map(this::execute).collect(Collectors.toList());
   }
 
   @Override
   public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout,
       TimeUnit unit) {
-    return null;
+    return invokeAll(tasks);
   }
 
   @Override

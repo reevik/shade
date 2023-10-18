@@ -53,6 +53,7 @@ public class EndpointRouterTest {
         .withRoutingCriterion(countingCriterion)
         .withRoutingMode(RoutingMode.A_SIDE)
         .build();
+
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     String result = router.route();
     assertThat(result).isEqualTo("A");
@@ -74,6 +75,7 @@ public class EndpointRouterTest {
         .withRoutingCriterion(countingCriterion)
         .withRoutingMode(RoutingMode.B_SIDE)
         .build();
+
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     String result = router.route();
     assertThat(result).isEqualTo("B");
@@ -91,6 +93,7 @@ public class EndpointRouterTest {
         .withMonitorable(expectSuccess())
         .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
         .build();
+
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
   }
@@ -107,6 +110,7 @@ public class EndpointRouterTest {
         .withMonitorable(expectSuccess())
         .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
         .build();
+
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("dbc");
   }
@@ -123,6 +127,7 @@ public class EndpointRouterTest {
         .withMonitorable(expectSuccess())
         .withRoutingMode(RoutingMode.SHADOW_MODE_PASSIVE)
         .build();
+    
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
   }
