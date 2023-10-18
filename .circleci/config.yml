@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  maven: circleci/maven@3.8
+  maven: circleci/maven@1.4.1
 workflows:
   maven_test:
     jobs:
