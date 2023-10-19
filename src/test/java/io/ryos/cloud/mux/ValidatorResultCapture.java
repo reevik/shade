@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2023 Erhan Bagdemir. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ */
+
 package io.ryos.cloud.mux;
 
 import io.ryos.cloud.mux.validators.ValidationResult;
@@ -20,6 +21,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 public class ValidatorResultCapture<T extends ValidationResult> implements Answer<T> {
+
   private T result = null;
 
   public T getResult() {

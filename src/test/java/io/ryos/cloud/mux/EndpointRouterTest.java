@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2023 Erhan Bagdemir. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/
+ */
+
 package io.ryos.cloud.mux;
 
 import static io.ryos.cloud.mux.MonitorableAssertionFactory.expectSuccess;
@@ -127,7 +128,7 @@ public class EndpointRouterTest {
         .withMonitorable(expectSuccess())
         .withRoutingMode(RoutingMode.SHADOW_MODE_PASSIVE)
         .build();
-    
+
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
   }
