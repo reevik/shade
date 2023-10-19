@@ -17,8 +17,8 @@
     </repository>
   </distributionManagement>
   <scm>
-    <connection>scm:git:${project.link}</connection>
-    <developerConnection>scm:git:${project.link}</developerConnection>
+    <connection>scm:git:git@github.com:notingolmo/jmux.git</connection>
+    <developerConnection>scm:git:git@github.com:notingolmo/jmux.git</developerConnection>
     <url>${project.url}</url>
     <tag>jmux-0.1</tag>
   </scm>
