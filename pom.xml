@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.ryos</groupId>
   <artifactId>jmux</artifactId>
-  <version>0.1.2</version>
+  <version>0.1.3-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>jmux</name>
   <url>https://github.com/notingolmo/jmux.git</url>
@@ -20,7 +20,7 @@
     <connection>scm:git:git@github.com:notingolmo/jmux.git</connection>
     <developerConnection>scm:git:git@github.com:notingolmo/jmux.git</developerConnection>
     <url>${project.url}</url>
-    <tag>jmux-0.1.2</tag>
+    <tag>jmux-0.1</tag>
   </scm>
   <developers>
     <developer>
