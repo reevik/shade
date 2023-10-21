@@ -47,7 +47,7 @@
     <profile>
       <id>release</id>
       <activation>
-        <activeByDefault>false</activeByDefault>
+        <activeByDefault>true</activeByDefault>
       </activation>
       <build>
         <plugins>
@@ -58,7 +58,7 @@
             <executions>
               <execution>
                 <id>sign-artifacts</id>
-                <phase>verify</phase>
+                <phase>release</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
