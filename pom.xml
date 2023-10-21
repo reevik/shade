@@ -45,9 +45,12 @@
   </licenses>
   <profiles>
     <profile>
-      <id>release</id>
+      <id>release-sign-artifacts</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
       </activation>
       <build>
         <plugins>
@@ -58,7 +61,7 @@
             <executions>
               <execution>
                 <id>sign-artifacts</id>
-                <phase>release</phase>
+                <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
