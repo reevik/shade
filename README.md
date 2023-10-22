@@ -7,6 +7,8 @@
 jMUX is a shadow and dark testing framework. The development is still in progress so if you want to
 test it out, you can build it from the source code.
 
+## Usage
+
 Shadow testing enables development teams to carry out endpoint switches of dependencies in a
 graceful way by calling both endpoints, say, A and B, and comparing their API responses. If the new
 endpoint satisfies pre-defined roll-out conditions the request will be routed to the new side.
