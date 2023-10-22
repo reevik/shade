@@ -14,7 +14,7 @@ Otherwise, the response from the old endpoint will be used. An example usage of 
 follows,
 
 ```java
-  RoutingConfiguration<String> routingConfiguration=Builder.<String>create()
+    RoutingConfiguration<String> routingConfiguration=Builder.<String>create()
     .withSideA(()->"Call A side")
     .withSideB(()->"Call B side")
     .withExecutorService(Executors.newFixedThreadPool(THREADS))
@@ -26,7 +26,7 @@ follows,
     String result=router.route();
 ```
 
-It takes two commands which implements the integration logic with the A and B side, a validator
+It takes two commands which implement the integration logic with the A and B side, a validator
 which validates the results of A and B endpoints, routing criterion to decide when the B side should
 be
 called, and the routing mode. Routing mode can be A_SIDE, which opens the A gate permanently,
