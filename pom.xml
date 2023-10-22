@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>io.ryos.cloud</groupId>
+  <groupId>net.reevik</groupId>
   <artifactId>jmux</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>jmux</name>
-  <url>https://github.com/notingolmo/jmux.git</url>
+  <url>https://github.com/reevik/jmux.git</url>
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh-snapshot</id>
@@ -17,8 +17,8 @@
     </repository>
   </distributionManagement>
   <scm>
-    <connection>scm:git:git@github.com:notingolmo/jmux.git</connection>
-    <developerConnection>scm:git:git@github.com:notingolmo/jmux.git</developerConnection>
+    <connection>scm:git:git@github.com:reevik/jmux.git</connection>
+    <developerConnection>scm:git:git@github.com:reevik/jmux.git</developerConnection>
     <url>${project.url}</url>
     <tag>jmux-0.1.0</tag>
   </scm>
@@ -29,7 +29,7 @@
     </developer>
   </developers>
   <issueManagement>
-    <url>https://github.com/notingolmo/jmux/issues</url>
+    <url>https://github.com/reevik/jmux/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
   <organization>
