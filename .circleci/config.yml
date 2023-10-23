@@ -2,10 +2,10 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-orbs:
-  maven: circleci/maven@1.4.1
-workflows:
-  maven_test:
-    jobs:
-      - maven/test:
-          command: '-X verify -Dnet.bytebuddy.experimental=true'
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:21.0.0
+    steps:
+      - checkout
+      - run: 'mvn -e clean verify -Dnet.bytebuddy.experimental=true'
