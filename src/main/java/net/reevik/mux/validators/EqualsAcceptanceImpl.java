@@ -14,24 +14,17 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux.validators;
+package net.reevik.mux.validators;
 
-import static io.ryos.cloud.mux.validators.ValidatorFactory.newResult;
+import static net.reevik.mux.validators.ValidatorFactory.newResult;
 
-import io.ryos.cloud.mux.Result;
-import java.util.function.BiPredicate;
+import net.reevik.mux.Result;
 
-public class CustomEqualsAcceptanceImpl<T> implements AcceptanceCriterion<T> {
-
-  private final BiPredicate<Result<T>, Result<T>> predicate;
-
-  public CustomEqualsAcceptanceImpl(BiPredicate<Result<T>, Result<T>> predicate) {
-    this.predicate = predicate;
-  }
+public class EqualsAcceptanceImpl<T> implements AcceptanceCriterion<T> {
 
   @Override
   public ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
-    return newResult(predicate.test(resultOnSideA, resultOnSideB), String.format(
+    return newResult(resultOnSideA.equals(resultOnSideB), String.format(
         "Equals check failed: The result from the A side: %s is not equal to the result from B side: %s",
         resultOnSideA, resultOnSideB));
   }

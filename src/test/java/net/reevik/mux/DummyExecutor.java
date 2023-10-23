@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -14,11 +14,21 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux.validators;
+package net.reevik.mux;
 
-import io.ryos.cloud.mux.Result;
+import net.reevik.mux.validators.ValidationResult;
 
-public interface ResultValidator<T> {
+public class NoopMonitoringImpl implements Monitorable {
 
-  ValidationResult validate(Result<T> resultA, Result<T> resultB);
+  @Override
+  public void onValidationError(ValidationResult validationResult) {
+  }
+
+  @Override
+  public void onRoute() {
+  }
+
+  @Override
+  public void onSpill() {
+  }
 }

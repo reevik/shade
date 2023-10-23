@@ -14,15 +14,27 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
-import java.time.Duration;
+/**
+ * Criterion which enables routing in case the number of requests reach a pre-configured threshold.
+ */
+public class CountingCriterion implements RoutingCriterion {
 
-public interface Result<T> {
+  private int counter;
+  private final int mod;
 
-  T getOrThrow() throws Exception;
+  public CountingCriterion(int mod) {
+    this.mod = mod;
+  }
 
-  Duration getDuration();
-
-  boolean isSucceeded();
+  @Override
+  public synchronized boolean canRoute() {
+    boolean canRoute = ++counter % mod == 0;
+    if (canRoute) {
+      counter = 0;
+      return true;
+    }
+    return false;
+  }
 }

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux.validators;
+package net.reevik.mux.validators;
 
-import static io.ryos.cloud.mux.validators.ValidatorFactory.newResult;
+import static net.reevik.mux.validators.ValidatorFactory.newResult;
 
-import io.ryos.cloud.mux.Result;
 import java.time.Duration;
+import net.reevik.mux.Result;
 
 public class PerformanceAcceptanceImpl<T> implements AcceptanceCriterion<T> {
 

@@ -14,23 +14,11 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux.validators;
 
-import io.ryos.cloud.mux.validators.ValidationResult;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import net.reevik.mux.Result;
 
-public class ValidatorResultCapture<T extends ValidationResult> implements Answer<T> {
+public interface ResultValidator<T> {
 
-  private T result = null;
-
-  public T getResult() {
-    return result;
-  }
-
-  @Override
-  public T answer(InvocationOnMock invocationOnMock) throws Throwable {
-    result = (T) invocationOnMock.callRealMethod();
-    return result;
-  }
+  ValidationResult validate(Result<T> resultA, Result<T> resultB);
 }

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
-import io.ryos.cloud.mux.validators.ResultValidator;
-import io.ryos.cloud.mux.validators.ValidationResult;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import net.reevik.mux.validators.ResultValidator;
+import net.reevik.mux.validators.ValidationResult;
 
 public class EndpointRouter<T> {
 

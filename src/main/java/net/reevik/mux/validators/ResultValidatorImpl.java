@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux.validators;
+package net.reevik.mux.validators;
 
-import static io.ryos.cloud.mux.validators.ValidatorFactory.newResult;
-
-import io.ryos.cloud.mux.Result;
 import java.util.List;
+import net.reevik.mux.Result;
 
 public class ResultValidatorImpl<T> implements ResultValidator<T> {
 
@@ -32,9 +30,9 @@ public class ResultValidatorImpl<T> implements ResultValidator<T> {
   public ValidationResult validate(Result<T> resultA, Result<T> resultB) {
     return acceptanceCriteria.stream()
         .map(criterion -> criterion.check(resultA, resultB))
-        .reduce((validationResultA, validationResultB) -> newResult(
+        .reduce((validationResultA, validationResultB) -> ValidatorFactory.newResult(
             validationResultA.isPassed() && validationResultB.isPassed(),
             validationResultA.getDescription().concat(validationResultB.getDescription())))
-        .orElse(newResult(false, ""));
+        .orElse(ValidatorFactory.newResult(false, ""));
   }
 }

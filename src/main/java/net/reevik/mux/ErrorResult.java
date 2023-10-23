@@ -14,26 +14,38 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux.validators;
+package net.reevik.mux;
 
+import java.time.Duration;
 import java.util.Objects;
 
-public class ValidationResult {
+public class ErrorResult<T> implements Result<T> {
 
-  private final boolean passed;
-  private final String description;
+  private final Exception e;
+  private final Duration duration;
 
-  public ValidationResult(boolean passed, String description) {
-    this.passed = passed;
-    this.description = description;
+  public ErrorResult(Exception e, Duration duration) {
+    this.e = e;
+    this.duration = duration;
   }
 
-  public boolean isPassed() {
-    return passed;
+  public Exception getError() {
+    return e;
   }
 
-  public String getDescription() {
-    return description;
+  @Override
+  public T getOrThrow() throws Exception {
+    throw e;
+  }
+
+  @Override
+  public Duration getDuration() {
+    return duration;
+  }
+
+  @Override
+  public boolean isSucceeded() {
+    return false;
   }
 
   @Override
@@ -44,12 +56,12 @@ public class ValidationResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ValidationResult that = (ValidationResult) o;
-    return passed == that.passed && Objects.equals(description, that.description);
+    ErrorResult<?> that = (ErrorResult<?>) o;
+    return Objects.equals(e, that.e);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(passed, description);
+    return Objects.hash(e);
   }
 }

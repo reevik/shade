@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
-import static io.ryos.cloud.mux.MonitorableAssertionFactory.expectSuccess;
-import static io.ryos.cloud.mux.validators.ValidatorFactory.mustEqual;
+import static net.reevik.mux.MonitorableAssertionFactory.expectSuccess;
+import static net.reevik.mux.validators.ValidatorFactory.mustEqual;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
@@ -25,13 +25,13 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-import io.ryos.cloud.mux.RoutingConfiguration.Builder;
-import io.ryos.cloud.mux.validators.EqualsAcceptanceImpl;
-import io.ryos.cloud.mux.validators.ResultValidator;
-import io.ryos.cloud.mux.validators.ResultValidatorImpl;
-import io.ryos.cloud.mux.validators.ValidationResult;
-import io.ryos.cloud.mux.validators.ValidatorFactory;
 import java.util.Collections;
+import net.reevik.mux.RoutingConfiguration.Builder;
+import net.reevik.mux.validators.EqualsAcceptanceImpl;
+import net.reevik.mux.validators.ResultValidator;
+import net.reevik.mux.validators.ResultValidatorImpl;
+import net.reevik.mux.validators.ValidationResult;
+import net.reevik.mux.validators.ValidatorFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

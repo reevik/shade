@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux.validators;
 
-import io.ryos.cloud.mux.validators.ValidationResult;
+import net.reevik.mux.Result;
 
-public interface Monitorable {
+public interface AcceptanceCriterion<T> {
 
-  void onValidationError(ValidationResult validationResult);
-
-  void onRoute();
-
-  void onSpill();
+  ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB);
 }

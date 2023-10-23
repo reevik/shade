@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
-import io.ryos.cloud.mux.validators.ResultValidator;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
+import net.reevik.mux.validators.ResultValidator;
 
 public class RoutingConfiguration<T> {
 

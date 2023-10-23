@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux.validators;
+package net.reevik.mux;
 
-import java.util.Collections;
+import net.reevik.mux.validators.ValidationResult;
 
-public class ValidatorFactory {
+public interface Monitorable {
 
-  public static <T> ResultValidator<T> mustEqual() {
-    return new ResultValidatorImpl<>(Collections.singletonList(new EqualsAcceptanceImpl<>()));
-  }
+  void onValidationError(ValidationResult validationResult);
 
-  public static ValidationResult newResult(boolean passed, String errorDescription) {
-    return new ValidationResult(passed, !passed ? errorDescription : "");
-  }
+  void onRoute();
+
+  void onSpill();
 }
-

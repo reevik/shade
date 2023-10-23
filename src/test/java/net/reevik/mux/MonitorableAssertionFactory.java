@@ -14,27 +14,28 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
-/**
- * Criterion which enables routing in case the number of requests reach a pre-configured threshold.
- */
-public class CountingCriterion implements RoutingCriterion {
+import net.reevik.mux.validators.ValidationResult;
 
-  private int counter;
-  private final int mod;
+public class MonitorableAssertionFactory {
 
-  public CountingCriterion(int mod) {
-    this.mod = mod;
-  }
+  public static Monitorable expectSuccess() {
 
-  @Override
-  public synchronized boolean canRoute() {
-    boolean canRoute = ++counter % mod == 0;
-    if (canRoute) {
-      counter = 0;
-      return true;
-    }
-    return false;
+    return new Monitorable() {
+      @Override
+      public void onValidationError(ValidationResult validationResult) {
+        throw new AssertionError("expected success but errored.");
+      }
+
+      @Override
+      public void onRoute() {
+      }
+
+      @Override
+      public void onSpill() {
+        throw new AssertionError("expected success but spilled.");
+      }
+    };
   }
 }

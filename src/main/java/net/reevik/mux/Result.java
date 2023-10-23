@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
-public enum RoutingMode {
-  A_SIDE,
-  B_SIDE,
-  SHADOW_MODE_PASSIVE,
-  SHADOW_MODE_ACTIVE,
-  ROLL_OUT
+import java.time.Duration;
+
+public interface Result<T> {
+
+  T getOrThrow() throws Exception;
+
+  Duration getDuration();
+
+  boolean isSucceeded();
 }

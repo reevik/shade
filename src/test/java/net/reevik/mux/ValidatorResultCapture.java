@@ -14,28 +14,23 @@
  * limitations under the License.
  */
 
-package io.ryos.cloud.mux;
+package net.reevik.mux;
 
-import io.ryos.cloud.mux.validators.ValidationResult;
+import net.reevik.mux.validators.ValidationResult;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
-public class MonitorableAssertionFactory {
+public class ValidatorResultCapture<T extends ValidationResult> implements Answer<T> {
 
-  public static Monitorable expectSuccess() {
+  private T result = null;
 
-    return new Monitorable() {
-      @Override
-      public void onValidationError(ValidationResult validationResult) {
-        throw new AssertionError("expected success but errored.");
-      }
+  public T getResult() {
+    return result;
+  }
 
-      @Override
-      public void onRoute() {
-      }
-
-      @Override
-      public void onSpill() {
-        throw new AssertionError("expected success but spilled.");
-      }
-    };
+  @Override
+  public T answer(InvocationOnMock invocationOnMock) throws Throwable {
+    result = (T) invocationOnMock.callRealMethod();
+    return result;
   }
 }
