@@ -8,11 +8,11 @@
   <url>https://github.com/reevik/jmux.git</url>
   <distributionManagement>
     <snapshotRepository>
-      <id>ossrh-snapshot</id>
+      <id>ossrh</id>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
-      <id>ossrh-release</id>
+      <id>ossrh</id>
       <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
