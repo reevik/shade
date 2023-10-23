@@ -8,4 +8,4 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-          command: '-X verify'
+          command: '-X verify -Dnet.bytebuddy.experimental=true'
