@@ -21,15 +21,15 @@ import net.reevik.mux.Result;
 
 public class ResultValidatorImpl<T> implements ResultValidator<T> {
 
-  private final List<AcceptanceCriterion<T>> acceptanceCriteria;
+  private final List<ResultValidator<T>> acceptanceCriteria;
 
-  public ResultValidatorImpl(List<AcceptanceCriterion<T>> acceptanceCriteria) {
+  public ResultValidatorImpl(List<ResultValidator<T>> acceptanceCriteria) {
     this.acceptanceCriteria = acceptanceCriteria;
   }
 
   public ValidationResult validate(Result<T> resultA, Result<T> resultB) {
     return acceptanceCriteria.stream()
-        .map(criterion -> criterion.check(resultA, resultB))
+        .map(criterion -> criterion.validate(resultA, resultB))
         .reduce((validationResultA, validationResultB) -> ValidatorFactory.newResult(
             validationResultA.isPassed() && validationResultB.isPassed(),
             validationResultA.getDescription().concat(validationResultB.getDescription())))

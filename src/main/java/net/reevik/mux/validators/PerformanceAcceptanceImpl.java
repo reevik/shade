@@ -21,7 +21,7 @@ import static net.reevik.mux.validators.ValidatorFactory.newResult;
 import java.time.Duration;
 import net.reevik.mux.Result;
 
-public class PerformanceAcceptanceImpl<T> implements AcceptanceCriterion<T> {
+public class PerformanceAcceptanceImpl<T> implements ResultValidator<T> {
 
   private final Duration maxDeviance;
 
@@ -30,7 +30,7 @@ public class PerformanceAcceptanceImpl<T> implements AcceptanceCriterion<T> {
   }
 
   @Override
-  public ValidationResult check(Result<T> resultASide, Result<T> resultBSide) {
+  public ValidationResult validate(Result<T> resultASide, Result<T> resultBSide) {
     Duration diffDuration = resultBSide.getDuration().minus(resultASide.getDuration());
     return newResult(diffDuration.compareTo(maxDeviance) > 0, String.format(
         "Performance check failed: The response time of the B Side deviates by %d seconds.",

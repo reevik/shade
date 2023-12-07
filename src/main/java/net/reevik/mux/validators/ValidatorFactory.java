@@ -21,7 +21,7 @@ import java.util.Collections;
 public class ValidatorFactory {
 
   public static <T> ResultValidator<T> mustEqual() {
-    return new ResultValidatorImpl<>(Collections.singletonList(new EqualsAcceptanceImpl<>()));
+    return new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>()));
   }
 
   public static ValidationResult newResult(boolean passed, String errorDescription) {

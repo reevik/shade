@@ -27,7 +27,8 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Collections;
 import net.reevik.mux.RoutingConfiguration.Builder;
-import net.reevik.mux.validators.EqualsAcceptanceImpl;
+import net.reevik.mux.criteria.CountingCondition;
+import net.reevik.mux.validators.EqualsValidatorImpl;
 import net.reevik.mux.validators.ResultValidator;
 import net.reevik.mux.validators.ResultValidatorImpl;
 import net.reevik.mux.validators.ValidationResult;
@@ -44,7 +45,7 @@ public class EndpointRouterTest {
 
   @Test
   public void testNonRouting() throws Exception {
-    CountingCriterion countingCriterion = new CountingCriterion(1);
+    CountingCondition countingCriterion = new CountingCondition(1);
     ResultValidator<String> mustEqual = spy(mustEqual());
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(() -> "A")
@@ -67,7 +68,7 @@ public class EndpointRouterTest {
 
   @Test
   public void testAlwaysRouting() throws Exception {
-    CountingCriterion countingCriterion = new CountingCriterion(1);
+    CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(EndpointRouterTest::assertNotCalled)
         .withSideB(() -> "B")
@@ -84,7 +85,7 @@ public class EndpointRouterTest {
 
   @Test
   public void testShadowTestingPassing() throws Exception {
-    CountingCriterion countingCriterion = new CountingCriterion(1);
+    CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(() -> "abc")
         .withSideB(() -> "abc")
@@ -101,7 +102,7 @@ public class EndpointRouterTest {
 
   @Test
   public void testShadowTestingPassingWithResultFromBSide() throws Exception {
-    CountingCriterion countingCriterion = new CountingCriterion(1);
+    CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(() -> "abc")
         .withSideB(() -> "dbc")
@@ -118,7 +119,7 @@ public class EndpointRouterTest {
 
   @Test
   public void testShadowTestingPassingWithResultFromASide() throws Exception {
-    CountingCriterion countingCriterion = new CountingCriterion(1);
+    CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(() -> "abc")
         .withSideB(() -> "dbc")
@@ -136,8 +137,8 @@ public class EndpointRouterTest {
   @Test
   public void testShadowTestingValidationFailure() throws Exception {
     ResultValidatorImpl<String> validator = spy(new ResultValidatorImpl<>(
-        Collections.singletonList(new EqualsAcceptanceImpl<>())));
-    CountingCriterion countingCriterion = new CountingCriterion(1);
+        Collections.singletonList(new EqualsValidatorImpl<>())));
+    CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
         .withSideA(() -> "abc")
         .withSideB(() -> "abd")

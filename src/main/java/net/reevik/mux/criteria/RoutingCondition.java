@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.validators;
+package net.reevik.mux.criteria;
 
-import static net.reevik.mux.validators.ValidatorFactory.newResult;
+/**
+ * Routing condition determines when an incoming request needs to be routed to the new endpoint. In
+ * different scenarios you may want to route different number of requests. For example, the
+ * implementation may choose to route a specific percentage of incoming requests to the new side, or
+ * in a cut-over scenario, all requests need to be directed.
+ */
+public interface RoutingCondition {
 
-import net.reevik.mux.Result;
-
-public class EqualsAcceptanceImpl<T> implements AcceptanceCriterion<T> {
-
-  @Override
-  public ValidationResult check(Result<T> resultOnSideA, Result<T> resultOnSideB) {
-    return newResult(resultOnSideA.equals(resultOnSideB), String.format(
-        "Equals check failed: The result from the A side: %s is not equal to the result from B side: %s",
-        resultOnSideA, resultOnSideB));
-  }
+  /**
+   * Returns @code true} if the request should be routed.
+   *
+   * @return {@code true} if the request should be routed.
+   */
+  boolean canRoute();
 }

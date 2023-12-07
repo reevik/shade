@@ -18,6 +18,7 @@ package net.reevik.mux;
 
 import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
+import net.reevik.mux.criteria.RoutingCondition;
 import net.reevik.mux.validators.ResultValidator;
 
 public class RoutingConfiguration<T> {
@@ -27,18 +28,18 @@ public class RoutingConfiguration<T> {
   private final ExecutorService executorService;
   private final ResultValidator<T> validator;
   private final RoutingMode routingMode;
-  private final RoutingCriterion routingCriterion;
+  private final RoutingCondition routingCondition;
   private final Monitorable monitorable;
 
   public RoutingConfiguration(SideCommand<T> sideACommand, SideCommand<T> sideBCommand,
       ExecutorService executorService, ResultValidator<T> validator, RoutingMode routingMode,
-      RoutingCriterion routingCriterion, Monitorable monitorable) {
+      RoutingCondition routingCondition, Monitorable monitorable) {
     this.sideACommand = sideACommand;
     this.sideBCommand = sideBCommand;
     this.executorService = executorService;
     this.validator = validator;
     this.routingMode = routingMode;
-    this.routingCriterion = routingCriterion;
+    this.routingCondition = routingCondition;
     this.monitorable = monitorable;
   }
 
@@ -49,7 +50,7 @@ public class RoutingConfiguration<T> {
     private ExecutorService executorService;
     private ResultValidator<T> validator;
     private RoutingMode routingMode;
-    private RoutingCriterion routingCriterion;
+    private RoutingCondition routingCondition;
     private Monitorable monitorable = new NoopMonitoringImpl();
 
     public static <T> Builder<T> create() {
@@ -81,8 +82,8 @@ public class RoutingConfiguration<T> {
       return this;
     }
 
-    public Builder<T> withRoutingCriterion(RoutingCriterion routingCriterion) {
-      this.routingCriterion = routingCriterion;
+    public Builder<T> withRoutingCriterion(RoutingCondition routingCriterion) {
+      this.routingCondition = routingCriterion;
       return this;
     }
 
@@ -93,7 +94,7 @@ public class RoutingConfiguration<T> {
 
     public RoutingConfiguration<T> build() {
       return new RoutingConfiguration<>(sideACommand, sideBCommand, executorService, validator,
-          routingMode, routingCriterion, monitorable);
+          routingMode, routingCondition, monitorable);
     }
   }
 
@@ -117,8 +118,8 @@ public class RoutingConfiguration<T> {
     return routingMode;
   }
 
-  public RoutingCriterion getRoutingCriterion() {
-    return routingCriterion;
+  public RoutingCondition getRoutingCriterion() {
+    return routingCondition;
   }
 
   public Monitorable getMonitorable() {

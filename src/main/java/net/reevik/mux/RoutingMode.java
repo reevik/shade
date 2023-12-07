@@ -16,10 +16,38 @@
 
 package net.reevik.mux;
 
+/**
+ * Routing mode dictates the current behaviour of the request routing.
+ */
 public enum RoutingMode {
+
+  /**
+   * A side only. All requests must be redirected to the old endpoint.
+   */
   A_SIDE,
+
+  /**
+   * B side only. All requests must be redirected to the new endpoint.
+   */
   B_SIDE,
+
+  /**
+   * Shadow mode is active in passive mode. Both endpoints will be simultaneously called and
+   * response objects will be analysed. The result of the analysis will be reported through
+   * monitoring integration. Nevertheless, the response from the old endpoint will be returned.
+   */
   SHADOW_MODE_PASSIVE,
+
+  /**
+   * Shadow mode is active in active mode. Both endpoints will be simultaneously called and response
+   * objects will be analysed. The result of the analysis will be reported through monitoring
+   * integration. Finally, the response from the new endpoint will be returned.
+   */
   SHADOW_MODE_ACTIVE,
+
+  /**
+   * Enables the roll-out mode. Depending on the routing condition, the request will be routed
+   * either to the old or new endpoint.
+   */
   ROLL_OUT
 }

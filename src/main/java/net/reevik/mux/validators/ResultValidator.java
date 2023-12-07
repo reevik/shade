@@ -18,6 +18,13 @@ package net.reevik.mux.validators;
 
 import net.reevik.mux.Result;
 
+/**
+ * The response objects from both endpoints need to be compared to evaluate if they are compatible
+ * so that the endpoint switch can be performed. {@link ResultValidator} instances are used to
+ * validate the responses of the endpoints.
+ *
+ * @param <T> The actual type of the endpoint response.
+ */
 public interface ResultValidator<T> {
 
   ValidationResult validate(Result<T> resultA, Result<T> resultB);

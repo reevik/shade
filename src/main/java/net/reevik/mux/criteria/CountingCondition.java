@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.mux.criteria;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -22,14 +22,14 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Criterion which enables routing in case the number of requests reach a pre-configured threshold.
  */
-public class CountingCriterion implements RoutingCriterion {
+public class CountingCondition implements RoutingCondition {
 
   private int counter;
   private final int mod;
 
   private final ReentrantLock lock = new ReentrantLock();
 
-  public CountingCriterion(int mod) {
+  public CountingCondition(int mod) {
     this.mod = mod;
   }
 
