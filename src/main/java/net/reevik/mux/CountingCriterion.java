@@ -16,6 +16,9 @@
 
 package net.reevik.mux;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Criterion which enables routing in case the number of requests reach a pre-configured threshold.
  */
@@ -24,16 +27,26 @@ public class CountingCriterion implements RoutingCriterion {
   private int counter;
   private final int mod;
 
+  private final ReentrantLock lock = new ReentrantLock();
+
   public CountingCriterion(int mod) {
     this.mod = mod;
   }
 
   @Override
-  public synchronized boolean canRoute() {
-    boolean canRoute = ++counter % mod == 0;
-    if (canRoute) {
-      counter = 0;
-      return true;
+  public boolean canRoute() {
+    try {
+      if (lock.tryLock(5, TimeUnit.SECONDS)) {
+        boolean canRoute = ++counter % mod == 0;
+        if (canRoute) {
+          counter = 0;
+          return true;
+        }
+      }
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    } finally {
+      lock.unlock();
     }
     return false;
   }
