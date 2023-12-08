@@ -17,6 +17,7 @@
 package net.reevik.mux;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 import net.reevik.mux.criteria.RoutingCondition;
 import net.reevik.mux.validators.ResultValidator;
@@ -32,11 +33,11 @@ public class RoutingConfiguration<T> {
   private final Monitorable monitorable;
 
   public RoutingConfiguration(SideCommand<T> sideACommand, SideCommand<T> sideBCommand,
-      ExecutorService executorService, ResultValidator<T> validator, RoutingMode routingMode,
+      ResultValidator<T> validator, RoutingMode routingMode,
       RoutingCondition routingCondition, Monitorable monitorable) {
     this.sideACommand = sideACommand;
     this.sideBCommand = sideBCommand;
-    this.executorService = executorService;
+    this.executorService = Executors.newVirtualThreadPerTaskExecutor();
     this.validator = validator;
     this.routingMode = routingMode;
     this.routingCondition = routingCondition;
@@ -47,7 +48,6 @@ public class RoutingConfiguration<T> {
 
     private SideCommand<T> sideACommand;
     private SideCommand<T> sideBCommand;
-    private ExecutorService executorService;
     private ResultValidator<T> validator;
     private RoutingMode routingMode;
     private RoutingCondition routingCondition;
@@ -64,11 +64,6 @@ public class RoutingConfiguration<T> {
 
     public Builder<T> withSideB(Supplier<T> supplier) {
       this.sideBCommand = new SideCommand<T>(supplier);
-      return this;
-    }
-
-    public Builder<T> withExecutorService(ExecutorService executorService) {
-      this.executorService = executorService;
       return this;
     }
 
@@ -93,7 +88,7 @@ public class RoutingConfiguration<T> {
     }
 
     public RoutingConfiguration<T> build() {
-      return new RoutingConfiguration<>(sideACommand, sideBCommand, executorService, validator,
+      return new RoutingConfiguration<>(sideACommand, sideBCommand, validator,
           routingMode, routingCondition, monitorable);
     }
   }

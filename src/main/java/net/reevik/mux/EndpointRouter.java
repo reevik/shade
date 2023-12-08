@@ -63,7 +63,6 @@ public class EndpointRouter<T> {
   private Future<Result<T>> getResult(SideCommand<T> sideBCommand, Result<T> resultA) {
     ResultValidator<T> validator = config.getValidator();
     Monitorable monitorable = config.getMonitorable();
-
     return config.getExecutorService().submit(() -> {
       Result<T> resultB = sideBCommand.run();
       ValidationResult validationResult = validator.validate(resultA, resultB);
@@ -83,13 +82,10 @@ public class EndpointRouter<T> {
   }
 
   private Result<T> rollOut(SideCommand<T> sideBCommand, SideCommand<T> sideACommand) {
-    Result<T> result;
     if (canRoute()) {
-      result = sideBCommand.run();
-    } else {
-      result = sideACommand.run();
+      return sideBCommand.run();
     }
-    return result;
+    return sideACommand.run();
   }
 
   private boolean canRoute() {
