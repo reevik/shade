@@ -17,12 +17,11 @@ follows,
 
 ```java
     RoutingConfiguration<String> routingConfiguration=Builder.<String>create()
-    .withSideA(()->"Call A side")
-    .withSideB(()->"Call B side")
-    .withExecutorService(Executors.newFixedThreadPool(THREADS))
+    .withSideA(()->"A")
+    .withSideB(EndpointRouterTest::assertNotCalled)
     .withResultValidator(mustEqual)
     .withRoutingCriterion(countingCriterion)
-    .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+    .withRoutingMode(RoutingMode.A_SIDE)
     .build();
     EndpointRouter<String> router=new EndpointRouter<>(routingConfiguration);
     String result=router.route();
