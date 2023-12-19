@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
-import net.reevik.mux.criteria.RoutingCondition;
-import net.reevik.mux.validators.ResultValidator;
+import net.reevik.darkest.criteria.RoutingCondition;
+import net.reevik.darkest.validators.ResultValidator;
 
 public class RoutingConfiguration<T> {
 

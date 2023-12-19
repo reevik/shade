@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.validators;
+package net.reevik.darkest;
 
-import java.util.Collections;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.function.Supplier;
 
-public class ValidatorFactory {
+public class SideCommand<T> {
 
-  public static <T> ResultValidator<T> mustEqual() {
-    return new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>()));
+  private final Supplier<T> supplier;
+
+  protected SideCommand(Supplier<T> supplier) {
+    this.supplier = supplier;
   }
 
-  public static ValidationResult newResult(boolean passed, String errorDescription) {
-    return new ValidationResult(passed, !passed ? errorDescription : "");
+  protected Result<T> run() {
+    Instant start = Instant.now();
+    try {
+      return new SuccessResult<>(supplier.get(), Duration.between(start, Instant.now()));
+    } catch (Exception e) {
+      return new ErrorResult<>(e, Duration.between(start, Instant.now()));
+    }
   }
 }
-

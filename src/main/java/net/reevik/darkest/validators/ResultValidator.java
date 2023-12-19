@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest.validators;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.function.Supplier;
+import net.reevik.darkest.Result;
 
-public class SideCommand<T> {
+/**
+ * The response objects from both endpoints need to be compared to evaluate if they are compatible
+ * so that the endpoint switch can be performed. {@link ResultValidator} instances are used to
+ * validate the responses of the endpoints.
+ *
+ * @param <T> The actual type of the endpoint response.
+ */
+public interface ResultValidator<T> {
 
-  private final Supplier<T> supplier;
-
-  protected SideCommand(Supplier<T> supplier) {
-    this.supplier = supplier;
-  }
-
-  protected Result<T> run() {
-    Instant start = Instant.now();
-    try {
-      return new SuccessResult<>(supplier.get(), Duration.between(start, Instant.now()));
-    } catch (Exception e) {
-      return new ErrorResult<>(e, Duration.between(start, Instant.now()));
-    }
-  }
+  ValidationResult validate(Result<T> resultA, Result<T> resultB);
 }

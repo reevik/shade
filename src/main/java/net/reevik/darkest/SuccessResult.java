@@ -14,26 +14,38 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.validators;
+package net.reevik.darkest;
 
+import java.time.Duration;
 import java.util.Objects;
 
-public class ValidationResult {
+public class SuccessResult<T> implements Result<T> {
 
-  private final boolean passed;
-  private final String description;
+  private final T result;
+  private final Duration duration;
 
-  public ValidationResult(boolean passed, String description) {
-    this.passed = passed;
-    this.description = description;
+  public SuccessResult(T result, Duration duration) {
+    this.result = result;
+    this.duration = duration;
   }
 
-  public boolean isPassed() {
-    return passed;
+  public T getResult() {
+    return result;
   }
 
-  public String getDescription() {
-    return description;
+  @Override
+  public T getOrThrow() throws Exception {
+    return result;
+  }
+
+  @Override
+  public Duration getDuration() {
+    return duration;
+  }
+
+  @Override
+  public boolean isSucceeded() {
+    return true;
   }
 
   @Override
@@ -44,12 +56,12 @@ public class ValidationResult {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ValidationResult that = (ValidationResult) o;
-    return passed == that.passed && Objects.equals(description, that.description);
+    SuccessResult<?> that = (SuccessResult<?>) o;
+    return Objects.equals(result, that.result);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(passed, description);
+    return Objects.hash(result);
   }
 }

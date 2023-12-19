@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.validators;
+package net.reevik.darkest.validators;
 
-import static net.reevik.mux.validators.ValidatorFactory.newResult;
+import static net.reevik.darkest.validators.ValidatorFactory.newResult;
 
-import net.reevik.mux.Result;
+import java.util.function.BiPredicate;
+import net.reevik.darkest.Result;
 
-public class EqualsValidatorImpl<T> implements ResultValidator<T> {
+public class CustomEqualsAcceptanceImpl<T> implements ResultValidator<T> {
+
+  private final BiPredicate<Result<T>, Result<T>> predicate;
+
+  public CustomEqualsAcceptanceImpl(BiPredicate<Result<T>, Result<T>> predicate) {
+    this.predicate = predicate;
+  }
 
   @Override
-  public ValidationResult validate(Result<T> resultA, Result<T> resultB) {
-    return newResult(resultA.equals(resultB), String.format(
+  public ValidationResult validate(Result<T> resultOnSideA, Result<T> resultOnSideB) {
+    return newResult(predicate.test(resultOnSideA, resultOnSideB), String.format(
         "Equals check failed: The result from the A side: %s is not equal to the result from B side: %s",
-        resultA, resultB));
+        resultOnSideA, resultOnSideB));
   }
 }

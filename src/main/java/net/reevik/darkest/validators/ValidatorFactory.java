@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.validators;
+package net.reevik.darkest.validators;
 
-import net.reevik.mux.Result;
+import java.util.Collections;
 
-/**
- * The response objects from both endpoints need to be compared to evaluate if they are compatible
- * so that the endpoint switch can be performed. {@link ResultValidator} instances are used to
- * validate the responses of the endpoints.
- *
- * @param <T> The actual type of the endpoint response.
- */
-public interface ResultValidator<T> {
+public class ValidatorFactory {
 
-  ValidationResult validate(Result<T> resultA, Result<T> resultB);
+  public static <T> ResultValidator<T> mustEqual() {
+    return new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>()));
+  }
+
+  public static ValidationResult newResult(boolean passed, String errorDescription) {
+    return new ValidationResult(passed, !passed ? errorDescription : "");
+  }
 }
+

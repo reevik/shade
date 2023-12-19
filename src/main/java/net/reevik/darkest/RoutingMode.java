@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest;
 
 /**
  * Routing mode dictates the current behaviour of the request routing.

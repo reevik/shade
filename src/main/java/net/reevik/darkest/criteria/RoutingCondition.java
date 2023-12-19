@@ -14,28 +14,20 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest.criteria;
 
-import net.reevik.mux.validators.ValidationResult;
+/**
+ * Routing condition determines when an incoming request needs to be routed to the new endpoint. In
+ * different scenarios you may want to route different number of requests. For example, the
+ * implementation may choose to route a specific percentage of incoming requests to the new side, or
+ * in a cut-over scenario, all requests need to be directed.
+ */
+public interface RoutingCondition {
 
-public class MonitorableAssertionFactory {
-
-  public static Monitorable expectSuccess() {
-
-    return new Monitorable() {
-      @Override
-      public void onValidationError(ValidationResult validationResult) {
-        throw new AssertionError("expected success but errored.");
-      }
-
-      @Override
-      public void onRoute() {
-      }
-
-      @Override
-      public void onSpill() {
-        throw new AssertionError("expected success but spilled.");
-      }
-    };
-  }
+  /**
+   * Returns @code true} if the request should be routed.
+   *
+   * @return {@code true} if the request should be routed.
+   */
+  boolean canRoute();
 }

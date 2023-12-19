@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest;
 
-import net.reevik.mux.validators.ValidationResult;
+import java.time.Duration;
 
-public class NoopMonitoringImpl implements Monitorable {
+public interface Result<T> {
 
-  @Override
-  public void onValidationError(ValidationResult validationResult) {
-  }
+  T getOrThrow() throws Exception;
 
-  @Override
-  public void onRoute() {
-  }
+  Duration getDuration();
 
-  @Override
-  public void onSpill() {
-  }
+  boolean isSucceeded();
 }

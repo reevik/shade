@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest;
 
-import static net.reevik.mux.MonitorableAssertionFactory.expectSuccess;
-import static net.reevik.mux.validators.ValidatorFactory.mustEqual;
+import static net.reevik.darkest.MonitorableAssertionFactory.expectSuccess;
+import static net.reevik.darkest.validators.ValidatorFactory.mustEqual;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
@@ -26,13 +26,13 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import java.util.Collections;
-import net.reevik.mux.RoutingConfiguration.Builder;
-import net.reevik.mux.criteria.CountingCondition;
-import net.reevik.mux.validators.EqualsValidatorImpl;
-import net.reevik.mux.validators.ResultValidator;
-import net.reevik.mux.validators.ResultValidatorImpl;
-import net.reevik.mux.validators.ValidationResult;
-import net.reevik.mux.validators.ValidatorFactory;
+import net.reevik.darkest.RoutingConfiguration.Builder;
+import net.reevik.darkest.criteria.CountingCondition;
+import net.reevik.darkest.validators.EqualsValidatorImpl;
+import net.reevik.darkest.validators.ResultValidator;
+import net.reevik.darkest.validators.ResultValidatorImpl;
+import net.reevik.darkest.validators.ValidationResult;
+import net.reevik.darkest.validators.ValidatorFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

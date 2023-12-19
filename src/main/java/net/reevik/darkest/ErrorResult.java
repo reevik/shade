@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest;
 
 import java.time.Duration;
 import java.util.Objects;

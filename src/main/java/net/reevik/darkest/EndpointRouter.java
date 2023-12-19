@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import net.reevik.mux.validators.ResultValidator;
-import net.reevik.mux.validators.ValidationResult;
+import net.reevik.darkest.validators.ResultValidator;
+import net.reevik.darkest.validators.ValidationResult;
 
 public class EndpointRouter<T> {
 

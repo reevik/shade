@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.validators;
+package net.reevik.darkest.validators;
 
-import static net.reevik.mux.validators.ValidatorFactory.newResult;
+import static net.reevik.darkest.validators.ValidatorFactory.newResult;
 
 import java.time.Duration;
-import net.reevik.mux.Result;
+import net.reevik.darkest.Result;
 
 public class PerformanceAcceptanceImpl<T> implements ResultValidator<T> {
 

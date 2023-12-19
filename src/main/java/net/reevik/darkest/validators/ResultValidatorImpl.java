@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.validators;
+package net.reevik.darkest.validators;
 
 import java.util.List;
-import net.reevik.mux.Result;
+import net.reevik.darkest.Result;
 
 public class ResultValidatorImpl<T> implements ResultValidator<T> {
 

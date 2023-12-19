@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.reevik.mux.criteria;
+package net.reevik.darkest.criteria;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;

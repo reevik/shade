@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package net.reevik.mux;
+package net.reevik.darkest;
 
-import net.reevik.mux.validators.ValidationResult;
+import net.reevik.darkest.validators.ValidationResult;
 
 public interface Monitorable {
 
