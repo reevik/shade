@@ -148,4 +148,44 @@ public class EndpointRouterTest {
     assertThat(router.route()).isEqualTo("abc");
     assertThat(capture.getResult().isPassed()).isFalse();
   }
+
+  @Test
+  public void testShadowTestingValidationPassesForBothNull() throws Exception {
+    ResultValidatorImpl<String> validator = spy(new ResultValidatorImpl<>(
+        Collections.singletonList(new EqualsValidatorImpl<>())));
+    CountingCondition countingCriterion = new CountingCondition(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(() -> null)
+        .withSideB(() -> null)
+        .withResultValidator(validator)
+        .withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .build();
+
+    ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
+    doAnswer(capture).when(validator).validate(any(), any());
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThat(router.route()).isEqualTo(null);
+    assertThat(capture.getResult().isPassed()).isTrue();
+  }
+
+  @Test
+  public void testShadowTestingValidationFailsWithNull() throws Exception {
+    ResultValidatorImpl<String> validator = spy(new ResultValidatorImpl<>(
+        Collections.singletonList(new EqualsValidatorImpl<>())));
+    CountingCondition countingCriterion = new CountingCondition(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(() -> "abc")
+        .withSideB(() -> null)
+        .withResultValidator(validator)
+        .withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .build();
+
+    ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
+    doAnswer(capture).when(validator).validate(any(), any());
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThat(router.route()).isEqualTo("abc");
+    assertThat(capture.getResult().isPassed()).isFalse();
+  }
 }
