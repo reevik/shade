@@ -19,6 +19,7 @@ package net.reevik.darkest;
 import static net.reevik.darkest.MonitorableAssertionFactory.expectSuccess;
 import static net.reevik.darkest.validators.ValidatorFactory.mustEqual;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.never;
@@ -82,64 +83,49 @@ public class EndpointRouterTest {
   }
 
   @Test
-  public void testShadowTestingPassing() throws Exception {
+  public void shadowTestingPassing() throws Exception {
     CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
-        .withSideA(() -> "abc")
-        .withSideB(() -> "abc")
-        .withResultValidator(mustEqual())
-        .withRoutingCriterion(countingCriterion)
-        .withMonitorable(expectSuccess())
-        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
-        .build();
+        .withSideA(() -> "abc").withSideB(() -> "abc").withResultValidator(mustEqual())
+        .withRoutingCriterion(countingCriterion).withMonitorable(expectSuccess())
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE).build();
 
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
   }
 
   @Test
-  public void testShadowTestingPassingWithResultFromBSide() throws Exception {
+  public void shadowTestingPassingWithResultFromBSide() throws Exception {
     CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
-        .withSideA(() -> "abc")
-        .withSideB(() -> "dbc")
-        .withResultValidator(alwaysTrueValidator)
-        .withRoutingCriterion(countingCriterion)
-        .withMonitorable(expectSuccess())
-        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
-        .build();
+        .withSideA(() -> "abc").withSideB(() -> "dbc").withResultValidator(alwaysTrueValidator)
+        .withRoutingCriterion(countingCriterion).withMonitorable(expectSuccess())
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE).build();
 
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("dbc");
   }
 
   @Test
-  public void testShadowTestingPassingWithResultFromASide() throws Exception {
+  public void shadowTestingPassingWithResultFromASide() throws Exception {
     CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
-        .withSideA(() -> "abc")
-        .withSideB(() -> "dbc")
-        .withResultValidator(alwaysTrueValidator)
-        .withRoutingCriterion(countingCriterion)
-        .withMonitorable(expectSuccess())
-        .withRoutingMode(RoutingMode.SHADOW_MODE_PASSIVE)
-        .build();
+        .withSideA(() -> "abc").withSideB(() -> "dbc").withResultValidator(alwaysTrueValidator)
+        .withRoutingCriterion(countingCriterion).withMonitorable(expectSuccess())
+        .withRoutingMode(RoutingMode.SHADOW_MODE_PASSIVE).build();
 
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
   }
 
   @Test
-  public void testShadowTestingValidationFailure() throws Exception {
-    ResultValidatorImpl<String> validator = spy(new ResultValidatorImpl<>(
-        Collections.singletonList(new EqualsValidatorImpl<>())));
+  public void shadowTestingValidationFailure() throws Exception {
+    ResultValidatorImpl<String> validator = spy(
+        new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>())));
     CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
-        .withSideA(() -> "abc")
-        .withSideB(() -> "abd")
-        .withResultValidator(validator)
-        .withRoutingCriterion(countingCriterion)
-        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .withSideA(() -> "abc").withSideB(() -> "abd").withResultValidator(validator)
+        .withRoutingCriterion(countingCriterion).withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
         .build();
 
     ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
@@ -150,16 +136,13 @@ public class EndpointRouterTest {
   }
 
   @Test
-  public void testShadowTestingValidationPassesForBothNull() throws Exception {
-    ResultValidatorImpl<String> validator = spy(new ResultValidatorImpl<>(
-        Collections.singletonList(new EqualsValidatorImpl<>())));
+  public void shadowTestingValidationPassesForBothNull() throws Exception {
+    ResultValidatorImpl<String> validator = spy(
+        new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>())));
     CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
-        .withSideA(() -> null)
-        .withSideB(() -> null)
-        .withResultValidator(validator)
-        .withRoutingCriterion(countingCriterion)
-        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .withSideA(() -> null).withSideB(() -> null).withResultValidator(validator)
+        .withRoutingCriterion(countingCriterion).withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
         .build();
 
     ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
@@ -170,22 +153,73 @@ public class EndpointRouterTest {
   }
 
   @Test
-  public void testShadowTestingValidationFailsWithNull() throws Exception {
-    ResultValidatorImpl<String> validator = spy(new ResultValidatorImpl<>(
-        Collections.singletonList(new EqualsValidatorImpl<>())));
+  public void shadowTestingValidationFailsWithNull() throws Exception {
+    ResultValidatorImpl<String> validator = spy(
+        new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>())));
     CountingCondition countingCriterion = new CountingCondition(1);
     RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
-        .withSideA(() -> "abc")
-        .withSideB(() -> null)
-        .withResultValidator(validator)
-        .withRoutingCriterion(countingCriterion)
-        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
+        .withSideA(() -> "abc").withSideB(() -> null).withResultValidator(validator)
+        .withRoutingCriterion(countingCriterion).withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE)
         .build();
 
     ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
+    assertThat(capture.getResult().isPassed()).isFalse();
+  }
+
+  @Test
+  public void shadowTestingExecutionFailsWithExceptionHandledGracefully() throws Exception {
+    ResultValidatorImpl<String> validator = spy(
+        new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>())));
+    CountingCondition countingCriterion = new CountingCondition(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create()
+        .withSideA(() -> "abc").withSideB(() -> {
+          throw new Exception("test");
+        }).withResultValidator(validator).withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE).build();
+
+    ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
+    doAnswer(capture).when(validator).validate(any(), any());
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThat(router.route()).isEqualTo("abc");
+    assertThat(capture.getResult().isPassed()).isFalse();
+  }
+
+  @Test
+  public void shadowTestingBothExecutionFailsWithExceptionAndEquals() throws Exception {
+    ResultValidatorImpl<String> validator = spy(
+        new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>())));
+    CountingCondition countingCriterion = new CountingCondition(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create().withSideA(() -> {
+          throw new Exception("test");
+        }).withSideB(() -> {
+          throw new Exception("test");
+        }).withResultValidator(validator).withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE).build();
+    ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
+    doAnswer(capture).when(validator).validate(any(), any());
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThatExceptionOfType(Exception.class).isThrownBy(router::route);
+    assertThat(capture.getResult().isPassed()).isTrue();
+  }
+
+  @Test
+  public void shadowTestingBothExecutionFailsWithExceptionAndNotEqual() throws Exception {
+    ResultValidatorImpl<String> validator = spy(
+        new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>())));
+    CountingCondition countingCriterion = new CountingCondition(1);
+    RoutingConfiguration<String> routingConfiguration = Builder.<String>create().withSideA(() -> {
+          throw new Exception("test");
+        }).withSideB(() -> {
+          throw new IllegalArgumentException("test");
+        }).withResultValidator(validator).withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE).build();
+    ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
+    doAnswer(capture).when(validator).validate(any(), any());
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThatExceptionOfType(Exception.class).isThrownBy(router::route);
     assertThat(capture.getResult().isPassed()).isFalse();
   }
 }

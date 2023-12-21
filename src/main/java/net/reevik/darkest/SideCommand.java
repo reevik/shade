@@ -18,20 +18,20 @@ package net.reevik.darkest;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.function.Supplier;
+import java.util.concurrent.Callable;
 
 public class SideCommand<T> {
 
-  private final Supplier<T> supplier;
+  private final Callable<T> supplier;
 
-  protected SideCommand(Supplier<T> supplier) {
+  protected SideCommand(Callable<T> supplier) {
     this.supplier = supplier;
   }
 
   protected Result<T> run() {
     Instant start = Instant.now();
     try {
-      return new SuccessResult<>(supplier.get(), Duration.between(start, Instant.now()));
+      return new SuccessResult<>(supplier.call(), Duration.between(start, Instant.now()));
     } catch (Exception e) {
       return new ErrorResult<>(e, Duration.between(start, Instant.now()));
     }

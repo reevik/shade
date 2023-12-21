@@ -16,9 +16,9 @@
 
 package net.reevik.darkest;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.Supplier;
 import net.reevik.darkest.criteria.RoutingCondition;
 import net.reevik.darkest.validators.ResultValidator;
 
@@ -57,13 +57,13 @@ public class RoutingConfiguration<T> {
       return new Builder<>();
     }
 
-    public Builder<T> withSideA(Supplier<T> supplier) {
-      this.sideACommand = new SideCommand<T>(supplier);
+    public Builder<T> withSideA(Callable<T> callable) {
+      this.sideACommand = new SideCommand<T>(callable);
       return this;
     }
 
-    public Builder<T> withSideB(Supplier<T> supplier) {
-      this.sideBCommand = new SideCommand<T>(supplier);
+    public Builder<T> withSideB(Callable<T> callable) {
+      this.sideBCommand = new SideCommand<T>(callable);
       return this;
     }
 

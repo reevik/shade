@@ -57,7 +57,7 @@ public class ErrorResult<T> implements Result<T> {
       return false;
     }
     ErrorResult<?> that = (ErrorResult<?>) o;
-    return Objects.equals(e, that.e);
+    return Objects.equals(e, that.e) || e.getClass().equals(that.e.getClass());
   }
 
   @Override
