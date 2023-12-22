@@ -4,16 +4,20 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main.svg?style=svg&circle-token=7010818212d0b87edb68ac4e0ad06609d52f7426)](https://dl.circleci.com/status-badge/redirect/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Darkest is a shadow and dark testing framework. The development is still in progress so if you want
-to test it out, you can build it from the source code.
+Darkest is a shadow and dark testing framework. Shadow testing enables development teams to carry out endpoint switches of service dependencies in a
+graceful way by calling both endpoints, say, A and B, and comparing their API responses. You can simply add the following maven dependency to your project: 
+
+```xml
+    <dependency>
+      <groupId>net.reevik</groupId>
+      <artifactId>darkest</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+```
 
 ## Usage
 
-Shadow testing enables development teams to carry out endpoint switches of dependencies in a
-graceful way by calling both endpoints, say, A and B, and comparing their API responses. If the new
-endpoint satisfies pre-defined roll-out conditions the request will be routed to the new side.
-Otherwise, the response from the old endpoint will be used. An example usage of the multiplexer as
-follows,
+You can consider the following code snippet how the routing configuration and router are created: 
 
 ```java
     RoutingConfiguration<String> routingConfiguration=Builder.<String>create()
@@ -23,17 +27,13 @@ follows,
     .withRoutingCriterion(countingCriterion)
     .withRoutingMode(RoutingMode.A_SIDE)
     .build();
-    EndpointRouter<String> router=new EndpointRouter<>(routingConfiguration);
+    
+    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     String result=router.route();
 ```
 
-It takes two commands which implement the integration logic with the A and B side, a validator
-which validates the results of A and B endpoints, routing criterion to decide when the B side should
-be
-called, and the routing mode. Routing mode can be A_SIDE, which opens the A gate permanently,
-B_SIDE, SHADOW_MODE_PASSIVE, in case the A-B validation succeeds, it still returns the result from
-the A side, SHADOW_MODE_ACTIVE, in case the A-B validation succeeds, Darkest returns the result
-object from B side.
+The RoutingConfiguration takes two commands which implement the integration logic with the A and B side, a validator which validates the results of A and B endpoints, routing criterion to decide when the B side should
+be called, and the routing mode. Routing mode can be A_SIDE, which opens the A gate permanently, B_SIDE, SHADOW_MODE_PASSIVE, in case the A-B validation succeeds, it still returns the result from the A side, SHADOW_MODE_ACTIVE, in case the A-B validation succeeds, Darkest returns the result object from B side.
 
 ## Bugs and Feedback
 
