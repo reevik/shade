@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.reevik</groupId>
   <artifactId>darkest</artifactId>
-  <version>0.1.2</version>
+  <version>0.1.3-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>darkest</name>
   <url>https://github.com/reevik/darkest.git</url>
@@ -21,7 +21,7 @@
     <connection>scm:git:git@github.com:reevik/darkest.git</connection>
     <developerConnection>scm:git:git@github.com:reevik/darkest.git</developerConnection>
     <url>${project.url}</url>
-    <tag>darkest-0.1.2</tag>
+    <tag>darkest-0.1.0</tag>
   </scm>
   <developers>
     <developer>
