@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.reevik</groupId>
   <artifactId>darkest</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.1</version>
   <packaging>jar</packaging>
   <name>darkest</name>
   <url>https://github.com/reevik/darkest.git</url>
@@ -22,7 +22,7 @@
     <connection>scm:git:git@github.com:reevik/darkest.git</connection>
     <developerConnection>scm:git:git@github.com:reevik/darkest.git</developerConnection>
     <url>${project.url}</url>
-    <tag>darkest-0.1.0</tag>
+    <tag>darkest-0.1.1</tag>
   </scm>
   <developers>
     <developer>
@@ -56,14 +56,6 @@
       </activation>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.2.3</version>
-            <configuration>
-              <argLine>-Dnet.bytebuddy.experimental=true</argLine>
-            </configuration>
-          </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
