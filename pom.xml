@@ -2,10 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.reevik</groupId>
   <artifactId>darkest</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>darkest</name>
   <url>https://github.com/reevik/darkest.git</url>
+  <description>Darkest is a Java library for Shadow Testing.</description>
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -45,7 +46,7 @@
   </licenses>
   <profiles>
     <profile>
-      <id>release-sign-artifacts</id>
+      <id>ossrh</id>
       <activation>
         <property>
           <name>performRelease</name>
@@ -56,8 +57,32 @@
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+              <attach>true</attach>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.6.3</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -65,10 +90,23 @@
             <version>3.1.0</version>
             <executions>
               <execution>
-                <id>sign-artifacts</id>
                 <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>prepare</goal>
+                  <goal>perform</goal>
                 </goals>
               </execution>
             </executions>
