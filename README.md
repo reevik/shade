@@ -20,8 +20,8 @@ You can consider the following code snippet how the routing configuration and ro
 
 ```java
     RoutingConfiguration<String> routingConfiguration=Builder.<String>create()
-    .withSideA(()->"A")
-    .withSideB(EndpointRouterTest::assertNotCalled)
+    .withSideA(()-> serviceOld.call())
+    .withSideB(()-> serviceNew.call())
     .withResultValidator(mustEqual)
     .withRoutingCriterion(countingCriterion)
     .withRoutingMode(RoutingMode.A_SIDE)
