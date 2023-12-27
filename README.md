@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/JDK-21%20-orange.svg)](https://github.com/reevik/darkest/wiki/Java-Support)
 [![License](https://img.shields.io/badge/Release-0.1.0%20-green.svg)](https://central.sonatype.com/artifact/net.reevik/darkest)
 
-The **Darkest** is a shadow and dark testing framework. Shadow testing enables development teams to
+The **Darkest** is a shadow testing and dark launching framework. Shadow testing enables development teams to
 carry out endpoint switches of service dependencies in a
 graceful way by calling both endpoints, say, A and B, and comparing their API responses. You can
 simply add the following maven dependency to your project:
