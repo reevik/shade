@@ -18,11 +18,34 @@ package net.reevik.darkest;
 
 import net.reevik.darkest.validators.ValidationResult;
 
+/**
+ * Implementations of {@link Monitorable} will get called, whenever a routing event is triggered.
+ * You can use {@link Monitorable} for your own purpose, for instance, to create metrics for each
+ * event type and monitor the roll-out.
+ */
 public interface Monitorable {
 
+  /**
+   * The method will get triggered on validation error.
+   *
+   * @param validationResult An instance contains information about validation.
+   */
   void onValidationError(ValidationResult validationResult);
 
+  /**
+   * The method will get triggered on validation success.
+   *
+   * @param validationResult An instance contains information about validation.
+   */
+  void onValidationSuccess(ValidationResult validationResult);
+
+  /**
+   * The method will get triggered whenever the request is routed to the new endpoint.
+   */
   void onRoute();
 
-  void onSpill();
+  /**
+   * The method will get triggered whenever the request is routed to the old endpoint.
+   */
+  void onStay();
 }

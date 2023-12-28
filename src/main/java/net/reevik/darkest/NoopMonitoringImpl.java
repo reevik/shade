@@ -25,10 +25,14 @@ public class NoopMonitoringImpl implements Monitorable {
   }
 
   @Override
+  public void onValidationSuccess(ValidationResult validationResult) {
+  }
+
+  @Override
   public void onRoute() {
   }
 
   @Override
-  public void onSpill() {
+  public void onStay() {
   }
 }

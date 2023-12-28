@@ -18,54 +18,42 @@ package net.reevik.darkest;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import net.reevik.darkest.validators.ResultValidator;
-import net.reevik.darkest.validators.ValidationResult;
 
 public class EndpointRouter<T> {
 
   private final RoutingConfiguration<T> config;
 
-  public EndpointRouter(final RoutingConfiguration<T> config) {
+  public EndpointRouter(RoutingConfiguration<T> config) {
     this.config = config;
   }
 
   public T route() throws Exception {
     Result<T> result;
-    SideCommand<T> sideBCommand = config.getSideBCommand();
-    SideCommand<T> sideACommand = config.getSideACommand();
-    switch (config.getRoutingMode()) {
-      case B_SIDE:
-        result = sideBCommand.run();
-        break;
-      case ROLL_OUT:
-        result = rollOut(sideBCommand, sideACommand);
-        break;
-      case SHADOW_MODE_ACTIVE:
-        result = shadowTestAndReturn(sideBCommand, sideACommand);
-        break;
-      case SHADOW_MODE_PASSIVE:
-        result = shadowTest(sideBCommand, sideACommand);
-        break;
-      case A_SIDE:
-      default:
-        result = sideACommand.run();
-    }
+    var sideBCommand = config.getSideBCommand();
+    var sideACommand = config.getSideACommand();
+    result = switch (config.getRoutingMode()) {
+      case B_SIDE -> sideBCommand.run();
+      case ROLL_OUT -> routeIfCanRoute(sideBCommand, sideACommand);
+      case SHADOW_MODE_ACTIVE -> evaluateAndReturn(sideBCommand, sideACommand);
+      case SHADOW_MODE_PASSIVE -> evaluate(sideBCommand, sideACommand);
+      default -> sideACommand.run();
+    };
     return result.getOrThrow();
   }
 
-  private Result<T> shadowTestAndReturn(SideCommand<T> sideBCommand, SideCommand<T> sideACommand)
+  private Result<T> evaluateAndReturn(SideCommand<T> sideBCommand, SideCommand<T> sideACommand)
       throws InterruptedException, ExecutionException {
-    Result<T> resultA = sideACommand.run();
-    Future<Result<T>> result = getResult(sideBCommand, resultA);
+    var resultA = sideACommand.run();
+    var result = evalAB(sideBCommand, resultA);
     return result.get();
   }
 
-  private Future<Result<T>> getResult(SideCommand<T> sideBCommand, Result<T> resultA) {
-    ResultValidator<T> validator = config.getValidator();
-    Monitorable monitorable = config.getMonitorable();
+  private Future<Result<T>> evalAB(SideCommand<T> sideBCommand, Result<T> resultA) {
+    var validator = config.getValidator();
+    var monitorable = config.getMonitorable();
     return config.getExecutorService().submit(() -> {
-      Result<T> resultB = sideBCommand.run();
-      ValidationResult validationResult = validator.validate(resultA, resultB);
+      var resultB = sideBCommand.run();
+      var validationResult = validator.validate(resultA, resultB);
       if (validationResult.isPassed()) {
         monitorable.onRoute();
         return resultB;
@@ -75,13 +63,13 @@ public class EndpointRouter<T> {
     });
   }
 
-  private Result<T> shadowTest(SideCommand<T> sideBCommand, SideCommand<T> sideACommand) {
-    Result<T> resultA = sideACommand.run();
-    getResult(sideBCommand, sideACommand.run());
+  private Result<T> evaluate(SideCommand<T> sideBCommand, SideCommand<T> sideACommand) {
+    var resultA = sideACommand.run();
+    evalAB(sideBCommand, sideACommand.run());
     return resultA;
   }
 
-  private Result<T> rollOut(SideCommand<T> sideBCommand, SideCommand<T> sideACommand) {
+  private Result<T> routeIfCanRoute(SideCommand<T> sideBCommand, SideCommand<T> sideACommand) {
     if (canRoute()) {
       return sideBCommand.run();
     }

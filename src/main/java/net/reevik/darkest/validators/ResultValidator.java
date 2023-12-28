@@ -27,5 +27,12 @@ import net.reevik.darkest.Result;
  */
 public interface ResultValidator<T> {
 
+  /**
+   * Validates if the result from the B side is compatible with the one from the A side.
+   *
+   * @param resultA {@link Result} instance from the A side.
+   * @param resultB {@link Result} instance from the B side.
+   * @return {@link ValidationResult} instance.
+   */
   ValidationResult validate(Result<T> resultA, Result<T> resultB);
 }
