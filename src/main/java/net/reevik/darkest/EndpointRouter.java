@@ -54,7 +54,7 @@ public class EndpointRouter<T> {
     return config.getExecutorService().submit(() -> {
       var resultB = sideBCommand.run();
       var validationResult = validator.validate(resultA, resultB);
-      if (validationResult.isPassed()) {
+      if (validationResult.passed()) {
         monitorable.onRoute();
         return resultB;
       }

@@ -20,6 +20,11 @@ import static net.reevik.darkest.validators.ValidatorFactory.newResult;
 
 import net.reevik.darkest.Result;
 
+/**
+ * Validates the equality of the result objects.
+ *
+ * @param <T> Result type.
+ */
 public class EqualsValidatorImpl<T> implements ResultValidator<T> {
 
   @Override

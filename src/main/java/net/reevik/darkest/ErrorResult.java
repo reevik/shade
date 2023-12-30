@@ -19,6 +19,11 @@ package net.reevik.darkest;
 import java.time.Duration;
 import java.util.Objects;
 
+/**
+ * Error result representation. It contains the exception instance.
+ *
+ * @param <T>
+ */
 public class ErrorResult<T> implements Result<T> {
 
   private final Exception e;
@@ -39,7 +44,7 @@ public class ErrorResult<T> implements Result<T> {
   }
 
   @Override
-  public Duration getDuration() {
+  public Duration duration() {
     return duration;
   }
 

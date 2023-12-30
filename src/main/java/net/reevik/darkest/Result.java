@@ -18,11 +18,32 @@ package net.reevik.darkest;
 
 import java.time.Duration;
 
+/**
+ * A wrapper for the result object from the endpoint call.
+ *
+ * @param <T> Actual result type.
+ */
 public interface Result<T> {
 
+  /**
+   * Returns the result object if the endpoint call succeeded, or throws an exception if otherwise.
+   *
+   * @return The result object from the endpoint.
+   * @throws Exception If the call failed.
+   */
   T getOrThrow() throws Exception;
 
-  Duration getDuration();
+  /**
+   * Endpoint call duration.
+   *
+   * @return {@link Duration} instance.
+   */
+  Duration duration();
 
+  /**
+   * If the call succeeds, returns true.
+   *
+   * @return f the call succeeds, returns true.
+   */
   boolean isSucceeded();
 }

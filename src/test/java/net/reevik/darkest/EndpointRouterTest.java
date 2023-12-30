@@ -132,7 +132,7 @@ public class EndpointRouterTest {
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
-    assertThat(capture.getResult().isPassed()).isFalse();
+    assertThat(capture.getResult().passed()).isFalse();
   }
 
   @Test
@@ -149,7 +149,7 @@ public class EndpointRouterTest {
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo(null);
-    assertThat(capture.getResult().isPassed()).isTrue();
+    assertThat(capture.getResult().passed()).isTrue();
   }
 
   @Test
@@ -166,7 +166,7 @@ public class EndpointRouterTest {
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
-    assertThat(capture.getResult().isPassed()).isFalse();
+    assertThat(capture.getResult().passed()).isFalse();
   }
 
   @Test
@@ -184,7 +184,7 @@ public class EndpointRouterTest {
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThat(router.route()).isEqualTo("abc");
-    assertThat(capture.getResult().isPassed()).isFalse();
+    assertThat(capture.getResult().passed()).isFalse();
   }
 
   @Test
@@ -202,7 +202,7 @@ public class EndpointRouterTest {
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThatExceptionOfType(Exception.class).isThrownBy(router::route);
-    assertThat(capture.getResult().isPassed()).isTrue();
+    assertThat(capture.getResult().passed()).isTrue();
   }
 
   @Test
@@ -220,6 +220,6 @@ public class EndpointRouterTest {
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
     assertThatExceptionOfType(Exception.class).isThrownBy(router::route);
-    assertThat(capture.getResult().isPassed()).isFalse();
+    assertThat(capture.getResult().passed()).isFalse();
   }
 }

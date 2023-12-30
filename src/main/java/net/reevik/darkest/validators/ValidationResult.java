@@ -18,23 +18,13 @@ package net.reevik.darkest.validators;
 
 import java.util.Objects;
 
-public class ValidationResult {
-
-  private final boolean passed;
-  private final String description;
-
-  public ValidationResult(boolean passed, String description) {
-    this.passed = passed;
-    this.description = description;
-  }
-
-  public boolean isPassed() {
-    return passed;
-  }
-
-  public String getDescription() {
-    return description;
-  }
+/**
+ * Validation result is a DTO which conveys information about the validation.
+ *
+ * @param passed      Whether the validation succeeds.
+ * @param description Error description if validation fails.
+ */
+public record ValidationResult(boolean passed, String description) {
 
   @Override
   public boolean equals(Object o) {
@@ -48,8 +38,4 @@ public class ValidationResult {
     return passed == that.passed && Objects.equals(description, that.description);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(passed, description);
-  }
 }

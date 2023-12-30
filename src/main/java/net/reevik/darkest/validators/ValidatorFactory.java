@@ -18,12 +18,28 @@ package net.reevik.darkest.validators;
 
 import java.util.Collections;
 
+/**
+ * Validator factory is a factory implementation for {@link ResultValidator}.
+ */
 public class ValidatorFactory {
 
+  /**
+   * The validator assures that the results from both endpoints equal.
+   *
+   * @param <T> Generic type of the result object.
+   * @return {@link ResultValidator} instance.
+   */
   public static <T> ResultValidator<T> mustEqual() {
     return new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>()));
   }
 
+  /**
+   * Factory method for {@link ValidationResult}.
+   *
+   * @param passed           Whether the validation succeeded.
+   * @param errorDescription If the validation fails, error description is required.
+   * @return {@link ValidationResult} instance.
+   */
   public static ValidationResult newResult(boolean passed, String errorDescription) {
     return new ValidationResult(passed, !passed ? errorDescription : "");
   }

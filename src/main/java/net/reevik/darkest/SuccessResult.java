@@ -19,28 +19,11 @@ package net.reevik.darkest;
 import java.time.Duration;
 import java.util.Objects;
 
-public class SuccessResult<T> implements Result<T> {
-
-  private final T result;
-  private final Duration duration;
-
-  public SuccessResult(T result, Duration duration) {
-    this.result = result;
-    this.duration = duration;
-  }
-
-  public T getResult() {
-    return result;
-  }
+public record SuccessResult<T>(T result, Duration duration) implements Result<T> {
 
   @Override
   public T getOrThrow() throws Exception {
     return result;
-  }
-
-  @Override
-  public Duration getDuration() {
-    return duration;
   }
 
   @Override

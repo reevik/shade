@@ -31,8 +31,8 @@ public class ResultValidatorImpl<T> implements ResultValidator<T> {
     return acceptanceCriteria.stream()
         .map(criterion -> criterion.validate(resultA, resultB))
         .reduce((validationResultA, validationResultB) -> ValidatorFactory.newResult(
-            validationResultA.isPassed() && validationResultB.isPassed(),
-            validationResultA.getDescription().concat(validationResultB.getDescription())))
+            validationResultA.passed() && validationResultB.passed(),
+            validationResultA.description().concat(validationResultB.description())))
         .orElse(ValidatorFactory.newResult(false, ""));
   }
 }
