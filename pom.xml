@@ -83,6 +83,10 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <reportOutputDirectory>${basedir}/docs</reportOutputDirectory>
+              <destDir>api</destDir>
+            </configuration>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
