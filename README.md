@@ -2,9 +2,9 @@
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main.svg?style=svg&circle-token=7010818212d0b87edb68ac4e0ad06609d52f7426)](https://dl.circleci.com/status-badge/redirect/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![License](https://img.shields.io/badge/JDK-21%20-orange.svg)](https://github.com/reevik/darkest/wiki/Java-Support)
+[![License](https://img.shields.io/badge/JDK-21%20-green.svg)](https://github.com/reevik/darkest/wiki/Java-Support)
 [![License](https://img.shields.io/badge/Release-0.1.0%20-green.svg)](https://central.sonatype.com/artifact/net.reevik/darkest)
-[![Javadoc](https://img.shields.io/badge/Javadoc%20-red.svg)](https://reevik.github.io/darkest/)
+[![Javadoc](https://img.shields.io/badge/Javadoc%20-green.svg)](https://reevik.github.io/darkest/)
 
 The **Darkest** is a shadow testing and dark launching framework. Shadow testing enables development teams to
 carry out endpoint switches of service dependencies in a
