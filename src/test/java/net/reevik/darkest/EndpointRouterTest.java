@@ -18,6 +18,7 @@ package net.reevik.darkest;
 
 import static net.reevik.darkest.MonitorableAssertionFactory.expectSuccess;
 import static net.reevik.darkest.validators.ValidatorFactory.mustEqual;
+import static net.reevik.darkest.validators.ValidatorFactory.mustPerformSimilar;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,6 +27,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
+import java.time.Duration;
 import java.util.Collections;
 import net.reevik.darkest.RoutingConfiguration.Builder;
 import net.reevik.darkest.criteria.CountingCondition;
@@ -219,6 +221,27 @@ public class EndpointRouterTest {
     ValidatorResultCapture<ValidationResult> capture = new ValidatorResultCapture<>();
     doAnswer(capture).when(validator).validate(any(), any());
     EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+    assertThatExceptionOfType(Exception.class).isThrownBy(router::route);
+    assertThat(capture.getResult().passed()).isFalse();
+  }
+
+  @Test
+  public void shadowTestingPerformanceValidationFails() throws Exception {
+    ResultValidatorImpl<String> validator = spy(
+        new ResultValidatorImpl<>(
+            Collections.singletonList(mustPerformSimilar(Duration.ofMillis(5)))));
+    var countingCriterion = new CountingCondition(1);
+    var routingConfiguration = Builder.<String>create().withSideA(() -> {
+          throw new Exception("test");
+        }).withSideB(() -> {
+          Thread.sleep(100);
+          throw new Exception("test");
+        }).withResultValidator(validator).withRoutingCriterion(countingCriterion)
+        .withRoutingMode(RoutingMode.SHADOW_MODE_ACTIVE).build();
+
+    var capture = new ValidatorResultCapture<>();
+    doAnswer(capture).when(validator).validate(any(), any());
+    var router = new EndpointRouter<>(routingConfiguration);
     assertThatExceptionOfType(Exception.class).isThrownBy(router::route);
     assertThat(capture.getResult().passed()).isFalse();
   }

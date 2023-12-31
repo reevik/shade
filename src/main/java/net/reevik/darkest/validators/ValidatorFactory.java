@@ -16,10 +16,11 @@
 
 package net.reevik.darkest.validators;
 
+import java.time.Duration;
 import java.util.Collections;
 
 /**
- * Validator factory is a factory implementation for {@link ResultValidator}.
+ * Standard validator factory is a factory implementation for {@link ResultValidator}.
  */
 public class ValidatorFactory {
 
@@ -31,6 +32,18 @@ public class ValidatorFactory {
    */
   public static <T> ResultValidator<T> mustEqual() {
     return new ResultValidatorImpl<>(Collections.singletonList(new EqualsValidatorImpl<>()));
+  }
+
+  /**
+   * The validator assures that both endpoint calls perform similar, i.e., within the range of max.
+   * deviance in {@link Duration}.
+   *
+   * @param maxDeviance Max. deviance in {@link Duration}.
+   * @param <T>         Generic type of the result object.
+   * @return {@link ResultValidator} instance.
+   */
+  public static <T> ResultValidator<T> mustPerformSimilar(Duration maxDeviance) {
+    return new PerformanceValidatorImpl<>(maxDeviance);
   }
 
   /**
