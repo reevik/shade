@@ -6,17 +6,25 @@
 [![License](https://img.shields.io/badge/Release-0.1.0%20-green.svg)](https://central.sonatype.com/artifact/net.reevik/darkest)
 [![Javadoc](https://img.shields.io/badge/Javadoc%20-green.svg)](https://reevik.github.io/darkest/)
 
-The **Darkest** is a shadow testing and dark launching framework. Shadow testing enables development teams to
-carry out endpoint switches of service dependencies in a
-graceful way by calling both endpoints, say, A and B, and comparing their API responses. You can
-simply add the following maven dependency to your project:
+'Dark Launching' refers to feature enablement in production behind the scenes, like 'Shadow
+Testing', which is the testing process of new application features in the background without making
+them generally available. It aims to activate new software features before the GA without
+interrupting the operations and being transparent to customers. During the testing phase, you are to
+monitor, for example, whether the new integration works seamlessly with existing components under
+realistic data and load. In services landscape, for instance, 'Shadow Testing' enables development
+teams to execute endpoint switches of service dependencies in a graceful way by calling both
+endpoints, say, A and B, and comparing their API responses.
+
+Darkest is a small library for Java, which allows you to test new application features in the
+background. You can simply add the following maven dependency to your project:
 
 ```xml
-    <dependency>
-      <groupId>net.reevik</groupId>
-      <artifactId>darkest</artifactId>
-      <version>0.1.0</version>
-    </dependency>
+
+<dependency>
+  <groupId>net.reevik</groupId>
+  <artifactId>darkest</artifactId>
+  <version>0.1.0</version>
+</dependency>
 ```
 
 ## Usage
