@@ -44,8 +44,8 @@ You can consider the following code snippet how the routing configuration and ro
     String result=router.route();
 ```
 
-The **RoutingConfiguration** takes two commands which implement the integration logic with the A and B endpoints. The **RoutingConfiguration** instance requires a validator which is used to validate the response objects from A and B endpoints, whereas a routing criterion to decide when the B side needs to 
-be called. The **Routing Mode** defines the operating mode of the EndpointRouter. A_SIDE is used to route all requests to the A endpoint (the existing integration) and B_SIDE works like A_SIDE, but this time all requests will be routed to the B endpoint (the new integration). **SHADOW_MODE_PASSIVE** results in calling both endpoints simultaneously. If the A-B validation succeeds, in other words A and B endpoint's results are compatible, the **EndpointRouter** returns the result object from the A side, **SHADOW_MODE_ACTIVE**, in case the A-B validation succeeds, it returns the result object from the B side.
+The **RoutingConfiguration** takes two commands which implement the integration logic with the A and B components. The **RoutingConfiguration** instance requires a validator which is used to validate the resulting objects from A and B calls, whereas a routing criterion to decide when the B side needs to 
+be called. You can configure the router, e.g., for every tenth requests to hit the B side. The **Routing Mode** defines the operating mode of the EndpointRouter. A_SIDE is used to route all requests to the A endpoint (the existing integration), which effectively enables A component, and B_SIDE works like A_SIDE, but this time all requests will be routed to the B component (the new integration). **SHADOW_MODE_PASSIVE** results in calling both endpoints simultaneously. If the A-B validation succeeds, in other words A and B component calls' results are compatible, the **EndpointRouter** returns the result object from the A side, **SHADOW_MODE_ACTIVE**, in case the A-B validation succeeds, it returns the result object from the B side.
 
 ## Bugs and Feedback
 
