@@ -69,4 +69,12 @@ public class ErrorResult<T> implements Result<T> {
   public int hashCode() {
     return Objects.hash(e);
   }
+
+  @Override
+  public String toString() {
+    return "ErrorResult{" +
+        "e=" + e +
+        ", duration=" + duration + " millis" +
+        '}';
+  }
 }

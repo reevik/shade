@@ -22,7 +22,6 @@ import java.time.Duration;
 import net.reevik.darkest.Result;
 
 public class PerformanceValidatorImpl<T> implements ResultValidator<T> {
-
   private final Duration maxDeviance;
 
   public PerformanceValidatorImpl(Duration maxDeviance) {
@@ -31,9 +30,9 @@ public class PerformanceValidatorImpl<T> implements ResultValidator<T> {
 
   @Override
   public ValidationResult validate(Result<T> resultASide, Result<T> resultBSide) {
-    Duration diffDuration = resultBSide.duration().minus(resultASide.duration());
+    var diffDuration = resultBSide.duration().minus(resultASide.duration());
     return newResult(maxDeviance.minus(diffDuration).toMillis() > 0, String.format(
-        "Performance check failed: The response time of the B Side deviates by %d seconds.",
-        diffDuration.getSeconds()));
+        "Performance check failed: The response time of the B Side deviates by %d millis.",
+        diffDuration.toMillis()));
   }
 }

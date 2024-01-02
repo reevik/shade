@@ -17,22 +17,30 @@
 package net.reevik.darkest;
 
 import net.reevik.darkest.validators.ValidationResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NoopMonitoringImpl implements Monitorable {
 
+  private static final Logger logger = LoggerFactory.getLogger(NoopMonitoringImpl.class);
+
   @Override
   public void onValidationError(ValidationResult validationResult) {
+    logger.error("Compatibility check=failed, reason={}", validationResult.description());
   }
 
   @Override
   public void onValidationSuccess(ValidationResult validationResult) {
+    logger.info("Compatibility check=passed");
   }
 
   @Override
   public void onRoute() {
+    logger.info("The request routed to the new side.");
   }
 
   @Override
   public void onStay() {
+    logger.info("The request routed to the old side.");
   }
 }
