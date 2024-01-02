@@ -47,4 +47,12 @@ public record SuccessResult<T>(T result, Duration duration) implements Result<T>
   public int hashCode() {
     return Objects.hash(result);
   }
+
+  @Override
+  public String toString() {
+    return "SuccessResult{" +
+        "result=" + result +
+        ", duration=" + duration.toMillis() + " millis" +
+        '}';
+  }
 }
