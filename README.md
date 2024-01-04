@@ -35,7 +35,7 @@ You can consider the following code snippet how the routing configuration and ro
     RoutingConfiguration<String> routingConfiguration=Builder.<String>create()
     .withSideA(()-> serviceOld.call())
     .withSideB(()-> serviceNew.call())
-    .withResultValidator(mustEqual)
+    .withResultValidator(mustEqual())
     .withRoutingCriterion(countingCriterion)
     .withRoutingMode(RoutingMode.A_SIDE)
     .build();
