@@ -73,8 +73,8 @@ by activating the new integration if the validation passes.
 Darkest brings a few simple validators, which you can use
 out-of-the-box. Let's take two of them, which, I presume, will be used mostly:
 
-* [mustEqual](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustEqual())
-* [mustPerformSimilar](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustPerformSimilar(java.time.Duration))
+* [ValidatorFactory#mustEqual](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustEqual())
+* [ValidatorFactory#mustPerformSimilar](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustPerformSimilar(java.time.Duration))
 
 Anyway, the validators are not limited to those above. You can write your own validators depending
 on your needs by extending the framework.
