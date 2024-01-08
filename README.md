@@ -29,7 +29,8 @@ background. You can simply add the following maven dependency to your project:
 
 ## Usage
 
-You can consider the following code snippet how the routing configuration and router instance are created: 
+You can consider the following code snippet, it is how the routing configuration and router instance
+are instantiated:
 
 ```java
     RoutingConfiguration<String> routingConfiguration=Builder.<String>create()
