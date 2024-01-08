@@ -39,20 +39,58 @@ You can consider the following code snippet how the routing configuration and ro
     .withRoutingCriterion(countingCriterion)
     .withRoutingMode(RoutingMode.A_SIDE)
     .build();
-    
-    EndpointRouter<String> router = new EndpointRouter<>(routingConfiguration);
+
+    EndpointRouter<String> router=new EndpointRouter<>(routingConfiguration);
     String result=router.route();
 ```
 
-The **RoutingConfiguration** takes two commands which implement the integration logic with the A and B components. The **RoutingConfiguration** instance requires a validator which is used to validate the resulting objects from A and B calls, whereas a routing criterion to decide when the B side needs to 
-be called. You can configure the router, e.g., for every tenth requests to hit the B side. The **Routing Mode** defines the operating mode of the EndpointRouter. A_SIDE is used to route all requests to the A endpoint (the existing integration), which effectively enables A component, and B_SIDE works like A_SIDE, but this time all requests will be routed to the B component (the new integration). **SHADOW_MODE_PASSIVE** results in calling both endpoints simultaneously. If the A-B validation succeeds, in other words A and B component calls' results are compatible, the **EndpointRouter** returns the result object from the A side, **SHADOW_MODE_ACTIVE**, in case the A-B validation succeeds, it returns the result object from the B side.
+The **RoutingConfiguration** takes two commands which implement the integration logic with the A and
+B components. The **RoutingConfiguration** instance requires a validator which is used to validate
+the resulting objects from A and B calls, whereas a routing criterion to decide when the B side
+needs to
+be called. You can configure the router, e.g., for every tenth requests to hit the B side. The *
+*Routing Mode** defines the operating mode of the EndpointRouter. A_SIDE is used to route all
+requests to the A endpoint (the existing integration), which effectively enables A component, and
+B_SIDE works like A_SIDE, but this time all requests will be routed to the B component (the new
+integration). **SHADOW_MODE_PASSIVE** results in calling both endpoints simultaneously. If the A-B
+validation succeeds, in other words A and B component calls' results are compatible, the *
+*EndpointRouter** returns the result object from the A side, **SHADOW_MODE_ACTIVE**, in case the A-B
+validation succeeds, it returns the result object from the B side.
+
+The modes which require both sides to get activates, like SHADOW_MODE_PASSIVE, leverage Java's
+virtual threads. So, it is important to note that using synchronized blocks within the command
+implementation may end up with pinned platform threads. Therefore, I encourage you to use,
+ReentrantLocks instead.
+
+### Validators
+
+Result validation is used to evaluate the result objects from both integration so that the framework
+can take action if two results are compatible or incompatible. Depending on the routing mode
+selected, if both results are equal, the routed may return the result object from the new
+integration. It means, the [Darkest](https://github.com/reevik/darkest) can roll out the new feature
+by activating the new integration if the validation passes.
+
+[Darkest](https://github.com/reevik/darkest) brings a few simple validators, which you can use
+out-of-the-box. Let's take two of them, which, I presume, will be used mostly:
+
+* [mustEqual](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustEqual())
+* [mustPerformSimilar](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustPerformSimilar(java.time.Duration))
+
+Anyway, the validators are not limited to those above. You can write your own validators depending
+on your needs by extending the framework.
+
+### Routing Criterion
+
+Routing criteria are preconditions for the router to determine when to enable the new integration.
+For example, the CountingCondition implements the logic which allows every n'th request to be routed
+to the new integration. Like validators, the framework brings a few criteria implementation
+out-of-the-box.
 
 ## Bugs and Feedback
 
 For bugs, questions and discussions please use
 the [GitHub Issues](https://github.com/notingolmo/darkest/issues).
 
- 
 ## LICENSE
 
 Copyright 2023 Erhan Bagdemir
