@@ -67,10 +67,10 @@ ReentrantLocks instead.
 Result validation is used to evaluate the result objects from both integration so that the framework
 can take action if two results are compatible or incompatible. Depending on the routing mode
 selected, if both results are equal, the routed may return the result object from the new
-integration. It means, the [Darkest](https://github.com/reevik/darkest) can roll out the new feature
+integration. It means, the Darkest can roll out the new feature
 by activating the new integration if the validation passes.
 
-[Darkest](https://github.com/reevik/darkest) brings a few simple validators, which you can use
+Darkest brings a few simple validators, which you can use
 out-of-the-box. Let's take two of them, which, I presume, will be used mostly:
 
 * [mustEqual](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustEqual())
