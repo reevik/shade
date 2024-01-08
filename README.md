@@ -48,8 +48,8 @@ The **RoutingConfiguration** takes two commands which implement the integration 
 B components. The **RoutingConfiguration** instance requires a validator which is used to validate
 the resulting objects from A and B calls, whereas a routing criterion to decide when the B side
 needs to
-be called. You can configure the router, e.g., for every tenth requests to hit the B side. The *
-*Routing Mode** defines the operating mode of the EndpointRouter. A_SIDE is used to route all
+be called. You can configure the router, e.g., for every tenth requests to hit the B side. The
+**Routing Mode** defines the operating mode of the EndpointRouter. A_SIDE is used to route all
 requests to the A endpoint (the existing integration), which effectively enables A component, and
 B_SIDE works like A_SIDE, but this time all requests will be routed to the B component (the new
 integration). **SHADOW_MODE_PASSIVE** results in calling both endpoints simultaneously. If the A-B
@@ -57,7 +57,7 @@ validation succeeds, in other words A and B component calls' results are compati
 **EndpointRouter** returns the result object from the A side, **SHADOW_MODE_ACTIVE**, in case the
 A-B validation succeeds, it returns the result object from the B side.
 
-The modes which require both sides to get activates, like SHADOW_MODE_PASSIVE, leverage Java's
+The modes which require both sides to get activates, like **SHADOW_MODE_PASSIVE**, leverage Java's
 virtual threads. So, it is important to note that using synchronized blocks within the command
 implementation may end up with pinned platform threads. Therefore, I encourage you to use,
 ReentrantLocks instead.
