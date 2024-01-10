@@ -4,6 +4,7 @@ version: 2.1
 
 jobs:
   build:
+    resource_class: medium+
     docker:
       - image: cimg/openjdk:21.0.0
     steps:
