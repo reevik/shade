@@ -2,9 +2,9 @@
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main.svg?style=svg&circle-token=7010818212d0b87edb68ac4e0ad06609d52f7426)](https://dl.circleci.com/status-badge/redirect/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![License](https://img.shields.io/badge/JDK-21%20-green.svg)](https://github.com/reevik/darkest/wiki/Java-Support)
-[![License](https://img.shields.io/badge/Release-0.2.0%20-green.svg)](https://central.sonatype.com/artifact/net.reevik/darkest)
-[![Javadoc](https://img.shields.io/badge/Javadoc%20-green.svg)](https://reevik.github.io/darkest/)
+[![License](https://img.shields.io/badge/JDK-21%20-green.svg)](https://github.com/reevik/shade/wiki/Java-Support)
+[![License](https://img.shields.io/badge/Release-0.2.0%20-green.svg)](https://central.sonatype.com/artifact/net.reevik/shade)
+[![Javadoc](https://img.shields.io/badge/Javadoc%20-green.svg)](https://reevik.github.io/shade/)
 
 'Dark Launching' refers to feature enablement in production behind the scenes, like 'Shadow
 Testing', which is the testing process of new application features in the background without making
@@ -15,14 +15,14 @@ realistic data and load. In services landscape, for instance, 'Shadow Testing' e
 teams to execute endpoint switches of service dependencies in a graceful way by calling both
 endpoints, say, A and B, and comparing their API responses.
 
-Darkest is a small library for Java, which allows you to test new application features in the
+Shade is a small library for Java, which allows you to test new application features in the
 background. You can simply add the following maven dependency to your project:
 
 ```xml
 
 <dependency>
   <groupId>net.reevik</groupId>
-  <artifactId>darkest</artifactId>
+  <artifactId>shade</artifactId>
   <version>0.2.0</version>
 </dependency>
 ```
@@ -68,14 +68,14 @@ ReentrantLocks instead.
 Result validation is used to evaluate the result objects from both integration so that the framework
 can take action if two results are compatible or incompatible. Depending on the routing mode
 selected, if both results are equal, the routed may return the result object from the new
-integration. It means, the Darkest can roll out the new feature
+integration. It means, the Shade can roll out the new feature
 by activating the new integration if the validation passes.
 
-Darkest brings a few simple validators, which you can use
+Shade brings a few simple validators, which you can use
 out-of-the-box. Let's take two of them, which, I presume, will be used mostly:
 
-* [ValidatorFactory#mustEqual](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustEqual())
-* [ValidatorFactory#mustPerformSimilar](https://reevik.github.io/darkest/net/reevik/darkest/validators/ValidatorFactory.html#mustPerformSimilar(java.time.Duration))
+* [ValidatorFactory#mustEqual](https://reevik.github.io/shade/net/reevik/shade/validators/ValidatorFactory.html#mustEqual())
+* [ValidatorFactory#mustPerformSimilar](https://reevik.github.io/shade/net/reevik/shade/validators/ValidatorFactory.html#mustPerformSimilar(java.time.Duration))
 
 Anyway, the validators are not limited to those above. You can write your own validators depending
 on your needs by extending the framework.
@@ -90,7 +90,7 @@ out-of-the-box.
 ## Bugs and Feedback**
 
 For bugs, questions and discussions please use
-the [GitHub Issues](https://github.com/notingolmo/darkest/issues).
+the [GitHub Issues](https://github.com/notingolmo/shade/issues).
 
 ## LICENSE
 
