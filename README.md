@@ -1,10 +1,15 @@
-<br/>
+<p align="center">
+<img src="media/shade-logo.png" width=150 />    
+</p>
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main.svg?style=svg&circle-token=7010818212d0b87edb68ac4e0ad06609d52f7426)](https://dl.circleci.com/status-badge/redirect/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main)
+<div align="center">
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main.svg?style=shield&circle-token=7010818212d0b87edb68ac4e0ad06609d52f7426)](https://dl.circleci.com/status-badge/redirect/circleci/MijSkLN7jgimc5d7X5xmw1/Cme7KtQEisA8WcpiPBhMCP/tree/main)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License](https://img.shields.io/badge/JDK-21%20-green.svg)](https://github.com/reevik/shade/wiki/Java-Support)
 [![License](https://img.shields.io/badge/Release-0.2.0%20-green.svg)](https://central.sonatype.com/artifact/net.reevik/shade)
 [![Javadoc](https://img.shields.io/badge/Javadoc%20-green.svg)](https://reevik.github.io/shade/)
+</div>
 
 'Dark Launching' refers to feature enablement in production behind the scenes, like 'Shadow
 Testing', which is the testing process of new application features in the background without making
