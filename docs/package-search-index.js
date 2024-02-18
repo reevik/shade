@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"net.reevik.darkest"},{"l":"net.reevik.darkest.criteria"},{"l":"net.reevik.darkest.validators"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"net.reevik.shade"},{"l":"net.reevik.shade.criteria"},{"l":"net.reevik.shade.validators"}];updateSearchResults();

@@ -27,7 +27,7 @@ background. You can simply add the following maven dependency to your project:
 </dependency>
 ```
 
-## Usage
+**## Usage
 
 You can consider the following code snippet, it is how the routing configuration and router instance
 are instantiated:
@@ -87,7 +87,7 @@ For example, the CountingCondition implements the logic which allows every n'th 
 to the new integration. Like validators, the framework brings a few criteria implementation
 out-of-the-box.
 
-## Bugs and Feedback
+## Bugs and Feedback**
 
 For bugs, questions and discussions please use
 the [GitHub Issues](https://github.com/notingolmo/darkest/issues).

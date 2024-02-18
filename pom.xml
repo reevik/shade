@@ -1,12 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.reevik</groupId>
-  <artifactId>darkest</artifactId>
+  <artifactId>shade</artifactId>
   <version>0.1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>darkest</name>
-  <url>https://github.com/reevik/darkest.git</url>
-  <description>Darkest is a Java library for Shadow Testing.</description>
+  <name>shade</name>
+  <url>https://github.com/reevik/shade.git</url>
+  <description>Shade is a Java library for Shadow Testing and Dark Launching.</description>
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -18,10 +20,10 @@
     </repository>
   </distributionManagement>
   <scm>
-    <connection>scm:git:git@github.com:reevik/darkest.git</connection>
-    <developerConnection>scm:git:git@github.com:reevik/darkest.git</developerConnection>
+    <connection>scm:git:git@github.com:reevik/shade.git</connection>
+    <developerConnection>scm:git:git@github.com:reevik/shade.git</developerConnection>
     <url>${project.url}</url>
-    <tag>darkest-0.1.0</tag>
+    <tag>shade-0.1.0</tag>
   </scm>
   <developers>
     <developer>
@@ -30,7 +32,7 @@
     </developer>
   </developers>
   <issueManagement>
-    <url>https://github.com/reevik/darkest/issues</url>
+    <url>https://github.com/reevik/shade/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
   <organization>
@@ -85,7 +87,6 @@
             </executions>
             <configuration>
               <reportOutputDirectory>${basedir}/docs</reportOutputDirectory>
-              <destDir>api</destDir>
             </configuration>
           </plugin>
           <plugin>
