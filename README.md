@@ -92,10 +92,10 @@ For example, the CountingCondition implements the logic which allows every n'th 
 to the new integration. Like validators, the framework brings a few criteria implementation
 out-of-the-box.
 
-## Bugs and Feedback**
+## Bugs and Feedback
 
 For bugs, questions and discussions please use
-the [GitHub Issues](https://github.com/notingolmo/shade/issues).
+the [GitHub Issues](https://github.com/reevik/shade/issues).
 
 ## LICENSE
 
