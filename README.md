@@ -27,7 +27,7 @@ background. You can simply add the following maven dependency to your project:
 </dependency>
 ```
 
-**## Usage
+## Usage
 
 You can consider the following code snippet, it is how the routing configuration and router instance
 are instantiated:
