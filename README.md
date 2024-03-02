@@ -79,8 +79,8 @@ by activating the new integration if the validation passes.
 Shade brings a few simple validators, which you can use
 out-of-the-box. Let's take two of them, which, I presume, will be used mostly:
 
-* [ValidatorFactory#mustEqual](https://reevik.github.io/shade/net/reevik/shade/validators/ValidatorFactory.html#mustEqual())
-* [ValidatorFactory#mustPerformSimilar](https://reevik.github.io/shade/net/reevik/shade/validators/ValidatorFactory.html#mustPerformSimilar(java.time.Duration))
+* [mustEqual](https://reevik.github.io/shade/net/reevik/shade/validators/ValidatorFactory.html#mustEqual())
+* [mustPerformSimilar](https://reevik.github.io/shade/net/reevik/shade/validators/ValidatorFactory.html#mustPerformSimilar(java.time.Duration))
 
 Anyway, the validators are not limited to those above. You can write your own validators depending
 on your needs by extending the framework.
